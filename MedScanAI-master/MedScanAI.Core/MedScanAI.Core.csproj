@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="MediatR" Version="12.4.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\MedScanAI.Domain\MedScanAI.Domain.csproj" />
+	  <ProjectReference Include="..\MedScanAI.Infrastructure\MedScanAI.Infrastructure.csproj" />
+	  <ProjectReference Include="..\MedScanAI.Service\MedScanAI.Service.csproj" />
+	  <ProjectReference Include="..\MedScanAI.Shared\MedScanAI.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Features\AIFeature\Query\Response\" />
+	  <Folder Include="Features\AppointmentFeature\Query\Response\" />
+	  <Folder Include="Wrappers\" />
+	</ItemGroup>
+	
+</Project>

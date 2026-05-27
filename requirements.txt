@@ -1,0 +1,91 @@
+# ============================================
+# MediScan Medical Center - Dependencies
+# ============================================
+
+# === Core LangChain Framework ===
+langchain==0.3.14
+langchain-community==0.3.13
+langchain-core==0.3.29
+langchain-groq==0.2.1
+langchain-openai==0.2.14
+langchain-huggingface==0.1.2
+langchain-google-genai>=2.0.0
+langgraph==0.3.29
+
+# === LLM Providers ===
+groq==0.14.0
+openai==1.59.7
+google-generativeai>=0.8.0
+
+# === Vector Database & Retrieval ===
+faiss-cpu==1.9.0.post1
+sentence-transformers==3.3.1
+rank_bm25>=0.2.2
+
+# === HuggingFace ===
+huggingface-hub==0.27.0
+transformers==4.48.0
+tokenizers==0.21.0
+
+# === PyTorch (Install separately) ===
+#
+# FOR GPU (CUDA 12.x):
+# torch==2.5.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+# torchvision==0.20.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+# torchaudio==2.5.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+#
+# FOR CPU ONLY:
+# torch==2.5.1+cpu
+# torchvision==0.20.1+cpu
+# torchaudio==2.5.1+cpu
+
+# === TensorFlow (Brain Tumor & Breast Cancer models) ===
+# IMPORTANT: tensorflow[and-cuda] causes pip "resolution-too-deep" errors.
+# Windows native GPU for TF was dropped after 2.10 (GPU requires WSL2).
+# Use plain pinned version - pip resolves it cleanly on Windows.
+tensorflow==2.18.0
+tf-keras==2.18.0
+# === OCR Libraries ===
+easyocr==1.7.2
+pytesseract==0.3.13
+opencv-python==4.10.0.84
+Pillow==11.0.0
+
+# === Web Search ===
+tavily-python==0.5.0
+
+# === Document Processing ===
+pypdf==5.1.0
+python-docx==1.1.2
+pandas==2.2.3
+
+# === Web Interface ===
+gradio==5.7.1
+gradio_client==1.5.0
+
+# === Utilities ===
+python-dotenv==1.0.1
+pytz==2024.2
+pydantic==2.10.3
+pydantic-core==2.27.1
+pydantic-settings>=2.0.0
+requests==2.32.3
+httpx>=0.25.0
+
+# === NumPy ===
+numpy<2,>=1.22.4
+
+# === Other ===
+typing-extensions==4.12.2
+
+# === FastAPI Backend ===
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.9
+
+# === PDF Generation ===
+reportlab>=4.0.0
+
+# === Arabic RTL Support ===
+arabic-reshaper>=2.1.0
+python-bidi>=0.4.0

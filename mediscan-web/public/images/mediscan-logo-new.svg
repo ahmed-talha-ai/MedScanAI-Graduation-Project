@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Primary gradient: teal to blue -->
+    <linearGradient id="main-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00685f"/>
+      <stop offset="100%" stop-color="#006780"/>
+    </linearGradient>
+    <!-- Neon cyan glow for dark mode scanning effect -->
+    <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#006780" stop-opacity="0.7"/>
+    </linearGradient>
+    <!-- Soft outer glow filter -->
+    <filter id="glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- Scanner beam glow -->
+    <filter id="beam-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- Clip for rounded square -->
+    <clipPath id="rounded-square">
+      <rect x="24" y="24" width="464" height="464" rx="96" ry="96"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="24" y="24" width="464" height="464" rx="96" ry="96" fill="url(#main-grad)"/>
+  
+  <!-- Subtle inner pattern: concentric arcs suggesting a scanning radar -->
+  <g clip-path="url(#rounded-square)" opacity="0.08">
+    <circle cx="256" cy="256" r="120" fill="none" stroke="white" stroke-width="1.5"/>
+    <circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="1"/>
+    <circle cx="256" cy="256" r="200" fill="none" stroke="white" stroke-width="0.75"/>
+    <circle cx="256" cy="256" r="240" fill="none" stroke="white" stroke-width="0.5"/>
+  </g>
+
+  <!-- Medical cross / plus sign — clean geometric shape -->
+  <g filter="url(#glow)">
+    <!-- Vertical bar of cross -->
+    <rect x="220" y="128" width="72" height="256" rx="16" ry="16" fill="white" opacity="0.95"/>
+    <!-- Horizontal bar of cross -->
+    <rect x="128" y="220" width="256" height="72" rx="16" ry="16" fill="white" opacity="0.95"/>
+  </g>
+  
+  <!-- Scanner beam: horizontal neon line across the cross -->
+  <g filter="url(#beam-glow)" opacity="0.85">
+    <line x1="108" y1="256" x2="404" y2="256" stroke="#00F2FE" stroke-width="2.5" stroke-linecap="round">
+      <animate attributeName="y1" values="180;332;180" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="180;332;180" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <!-- Wider faint scan line -->
+    <line x1="108" y1="256" x2="404" y2="256" stroke="#00F2FE" stroke-width="8" stroke-linecap="round" opacity="0.2">
+      <animate attributeName="y1" values="180;332;180" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="180;332;180" dur="3s" repeatCount="indefinite"/>
+    </line>
+  </g>
+
+  <!-- AI Brain dots: two small glowing circles at the cross intersection -->
+  <circle cx="234" cy="240" r="5" fill="#00F2FE" opacity="0.7">
+    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="278" cy="272" r="5" fill="#00F2FE" opacity="0.7">
+    <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="256" cy="256" r="4" fill="#00F2FE" opacity="0.8">
+    <animate attributeName="r" values="3;5;3" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Corner accent marks: technical/futuristic bracket corners -->
+  <g stroke="white" stroke-width="2" fill="none" opacity="0.35" stroke-linecap="round">
+    <!-- Top-left -->
+    <polyline points="80,120 80,88 112,88"/>
+    <!-- Top-right -->
+    <polyline points="432,120 432,88 400,88"/>
+    <!-- Bottom-left -->
+    <polyline points="80,392 80,424 112,424"/>
+    <!-- Bottom-right -->
+    <polyline points="432,392 432,424 400,424"/>
+  </g>
+</svg>

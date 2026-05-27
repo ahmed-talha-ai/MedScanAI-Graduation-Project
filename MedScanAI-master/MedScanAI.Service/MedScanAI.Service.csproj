@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="MailKit" Version="4.9.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.9" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\MedScanAI.Domain\MedScanAI.Domain.csproj" />
+	  <ProjectReference Include="..\MedScanAI.Infrastructure\MedScanAI.Infrastructure.csproj" />
+	  <ProjectReference Include="..\MedScanAI.Shared\MedScanAI.Shared.csproj" />
+	</ItemGroup>
+	
+</Project>

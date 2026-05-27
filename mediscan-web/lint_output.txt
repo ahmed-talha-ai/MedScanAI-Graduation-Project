@@ -1,0 +1,62 @@
+
+> mediscan-web@0.1.0 lint
+> eslint
+
+
+D:\University\Graduation Project\Final Folder\Notebooks\mediscan-web\src\components\layout\LandingNav.tsx
+  22:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\University\Graduation Project\Final Folder\Notebooks\mediscan-web\src\components\layout\LandingNav.tsx:22:5
+  20 |   useEffect(() => {
+  21 |     const stored = localStorage.getItem('mediscan-theme') === 'dark';
+> 22 |     setIsDark(stored);
+     |     ^^^^^^^^^ Avoid calling setState() directly within an effect
+  23 |     if (stored) {
+  24 |       document.documentElement.classList.add('dark');
+  25 |     } else {  react-hooks/set-state-in-effect
+
+D:\University\Graduation Project\Final Folder\Notebooks\mediscan-web\src\components\layout\SideNavBar.tsx
+  53:5  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\University\Graduation Project\Final Folder\Notebooks\mediscan-web\src\components\layout\SideNavBar.tsx:53:5
+  51 |
+  52 |   useEffect(() => {
+> 53 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |     setIsDark(document.documentElement.classList.contains('dark'));
+  55 |     const observer = new MutationObserver(() => {
+  56 |       setIsDark(document.documentElement.classList.contains('dark'));  react-hooks/set-state-in-effect
+  70:9  warning  'activeIndex' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+
+D:\University\Graduation Project\Final Folder\Notebooks\mediscan-web\src\components\layout\TopNavBar.tsx
+  24:17  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\University\Graduation Project\Final Folder\Notebooks\mediscan-web\src\components\layout\TopNavBar.tsx:24:17
+  22 |   useEffect(() => {
+  23 |     const stored = localStorage.getItem('mediscan-theme') === 'dark';
+> 24 |     if (stored) setIsDark(true);
+     |                 ^^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |     const t = setTimeout(() => setMounted(true), 10);
+  26 |     return () => clearTimeout(t);
+  27 |   }, []);  react-hooks/set-state-in-effect
+
+✖ 4 problems (3 errors, 1 warning)
+

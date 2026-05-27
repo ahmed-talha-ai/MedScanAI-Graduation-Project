@@ -1,0 +1,225 @@
+============================================================
+          MediScan AI — i18n Localization Audit
+============================================================
+
+--- Check 1: Key Symmetry ---
+✅ Key symmetry check passed! Both locales contain the exact same keys.
+
+--- Check 2: Empty or Null Values ---
+✅ No empty or null values found in either locale file.
+
+--- Check 3: Untranslated & Misplaced Content ---
+❌ Potentially untranslated English text in ar.json (2):
+  - landing.nav.langToggle: 'EN'
+  - nav.langToggle: 'EN'
+❌ Misplaced Arabic characters in en.json (2):
+  - landing.nav.langToggle: 'عر'
+  - nav.langToggle: 'عر'
+
+--- Check 4: Unused Translation Keys (Report Only) ---
+⚠️  Found 195 translation keys defined in JSONs but not directly referenced in code:
+  - adminBook.availableSlots
+  - aiModels.brainTumor
+  - aiModels.breastCancer
+  - aiModels.chatbot
+  - aiModels.chestXray
+  - aiModels.labOcr
+  - aiModels.medicalReport
+  - aiModels.skinDisease
+  - app.description
+  - app.name
+  - appointments.step
+  - appointments.tabs.confirmed
+  - appointments.tabs.pending
+  - appointments.yrExp
+  - appointments.yrsExp
+  - children.dosage.perDose
+  - children.firstaid.allergic
+  - children.firstaid.allergicStep1
+  - children.firstaid.allergicStep2
+  - children.firstaid.allergicStep3
+  - children.firstaid.allergicStep4
+  - children.firstaid.allergicStep5
+  - children.firstaid.burns
+  - children.firstaid.burnsStep1
+  - children.firstaid.burnsStep2
+  - children.firstaid.burnsStep3
+  - children.firstaid.burnsStep4
+  - children.firstaid.burnsStep5
+  - children.firstaid.choking
+  - children.firstaid.chokingStep1
+  - children.firstaid.chokingStep2
+  - children.firstaid.chokingStep3
+  - children.firstaid.chokingStep4
+  - children.firstaid.chokingStep5
+  - children.firstaid.cuts
+  - children.firstaid.cutsStep1
+  - children.firstaid.cutsStep2
+  - children.firstaid.cutsStep3
+  - children.firstaid.cutsStep4
+  - children.firstaid.cutsStep5
+  - children.firstaid.fever
+  - children.firstaid.feverStep1
+  - children.firstaid.feverStep2
+  - children.firstaid.feverStep3
+  - children.firstaid.feverStep4
+  - children.firstaid.feverStep5
+  - children.firstaid.head
+  - children.firstaid.headStep1
+  - children.firstaid.headStep2
+  - children.firstaid.headStep3
+  - children.firstaid.headStep4
+  - children.firstaid.headStep5
+  - children.food.addedSugar
+  - children.food.age0_6
+  - children.food.age1_2
+  - children.food.age2_5
+  - children.food.age6_8
+  - children.food.age9_12
+  - children.food.allFamily
+  - children.food.breastMilk
+  - children.food.cowsMilk
+  - children.food.dairy
+  - children.food.eggYolk
+  - children.food.eggs
+  - children.food.fingerFoods
+  - children.food.fish
+  - children.food.formula
+  - children.food.hardCandy
+  - children.food.honey
+  - children.food.largeNuts
+  - children.food.mashedLegumes
+  - children.food.mostFoodsSupervision
+  - children.food.peanutButterThin
+  - children.food.popcorn
+  - children.food.pureedFruits
+  - children.food.pureedVeg
+  - children.food.riceCereal
+  - children.food.salt
+  - children.food.shellfish
+  - children.food.softCookedVeg
+  - children.food.softFamily
+  - children.food.softFruits
+  - children.food.softMashed
+  - children.food.solids
+  - children.food.wholeGrains
+  - children.food.wholeNuts
+  - children.growth.history
+  - children.milestones.achievedCount
+  - children.milestones.expectedMonths
+  - children.milestones.hold
+  - children.milestones.jump
+  - children.milestones.roll
+  - children.milestones.run
+  - children.milestones.sit
+  - children.milestones.smile
+  - children.milestones.stand
+  - children.milestones.walk1
+  - children.milestones.wave
+  - children.milestones.words
+  - children.symptoms.breath
+  - children.symptoms.cough
+  - children.symptoms.diarrhea
+  - children.symptoms.fever
+  - children.symptoms.lethargy
+  - children.symptoms.rash
+  - children.symptoms.runny
+  - children.symptoms.vomit
+  - children.tools.bmi-calculator.desc
+  - children.tools.dosage-calculator.desc
+  - children.tools.first-aid.desc
+  - children.tools.food-guide.desc
+  - children.tools.growth-tracker.desc
+  - children.tools.milestones.desc
+  - children.tools.symptom-checker.desc
+  - children.tools.vaccination-tracker.desc
+  - children.vaccines.birth
+  - children.vaccines.due
+  - children.vaccines.m12
+  - children.vaccines.m18
+  - children.vaccines.m2
+  - children.vaccines.m4
+  - children.vaccines.m6
+  - common.confirm
+  - common.delete
+  - common.edit
+  - common.error
+  - common.or
+  - common.save
+  - dashboard.admin.addAdmin
+  - dashboard.admin.addAdminTitle
+  - dashboard.admin.greeting
+  - dashboard.admin.systemUptime
+  - dashboard.admin.totalDoctors
+  - dashboard.admin.walkInBooking
+  - errors.forbidden
+  - errors.serverError
+  - errors.unauthorized
+  - exam.brainTumor.step1Hint
+  - exam.brainTumor.step1Instruction
+  - exam.brainTumor.step2Hint
+  - exam.brainTumor.step2Instruction
+  - exam.brainTumor.step3Hint
+  - exam.brainTumor.step3Instruction
+  - exam.brainTumor.step4Hint
+  - exam.brainTumor.step4Instruction
+  - exam.brainTumor.step4Title
+  - exam.brainTumor.step5Hint
+  - exam.brainTumor.step5Instruction
+  - exam.brainTumor.step5Title
+  - exam.breastSelf.step1Instruction
+  - exam.breastSelf.step2Instruction
+  - exam.breastSelf.step3Instruction
+  - exam.breastSelf.step4Instruction
+  - exam.breastSelf.step4Title
+  - exam.breastSelf.step5Instruction
+  - exam.breastSelf.step5Title
+  - exam.breastSelf.step6Instruction
+  - exam.breastSelf.step6Title
+  - exam.landing.stepOf
+  - exam.shared.bookFollowUp
+  - exam.shared.goToAppointments
+  - exam.shared.lastCompleted
+  - exam.shared.saveToRecord
+  - exam.shared.stepOf
+  - exam.skinSelf.step1Instruction
+  - exam.skinSelf.step2Instruction
+  - exam.skinSelf.step3Instruction
+  - exam.skinSelf.step4Instruction
+  - exam.skinSelf.step4Title
+  - exam.skinSelf.step5Instruction
+  - exam.skinSelf.step5Title
+  - forbiddenMeds.filterAll
+  - landing.card.complete
+  - landing.card.live
+  - landing.hero.badge
+  - landing.hero.ctaPrimary
+  - landing.hero.ctaSecondary
+  - landing.trust.accuracy
+  - landing.trust.encryption
+  - landing.trust.realtime
+  - landing.trust.services
+  - nav.addAdmin
+  - nav.admin
+  - nav.appointments
+  - nav.childrenHealth
+  - nav.dashboard
+  - nav.forbiddenMeds
+  - nav.profile
+  - nav.support
+  - severity.forbidden
+  - streaming.analyzing
+  - streaming.generating
+  - streaming.stop
+  - streaming.thinking
+  - validation.required
+
+--- Check 5: Hardcoded Strings in TSX (Report Only, >3 words) ---
+⚠️  Found 3 hardcoded strings (>3 words) directly in JSX:
+  - app\[locale]\(app)\admin\add-doctor\page.tsx:12 [Arabic] -> '{ id: 1, label: Dermatology — الأمراض الجلدية },'
+  - app\[locale]\(app)\admin\add-doctor\page.tsx:13 [Arabic] -> '{ id: 2, label: Neurology — طب الأعصاب },'
+  - app\[locale]\(app)\admin\add-doctor\page.tsx:14 [Arabic] -> '{ id: 3, label: Pulmonology — أمراض الصدر },'
+
+============================================================
+❌ LOCALIZATION AUDIT FAILED (Check 1, 2, or 3 failed)
+============================================================

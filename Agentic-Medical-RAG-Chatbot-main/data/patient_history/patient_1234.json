@@ -1,0 +1,130 @@
+{
+  "patient_id": "1234",
+  "created_at": "2026-02-03T22:32:49.173215",
+  "updated_at": "2026-02-03T22:47:25.336731",
+  "profile": {
+    "name": "Ahmed Mohamed",
+    "age": "45",
+    "gender": "male",
+    "phone": "010-1234-5678"
+  },
+  "records": [
+    {
+      "id": "20260203223827250414",
+      "timestamp": "2026-02-03T22:38:27.250414",
+      "type": "chat",
+      "content": "المريض: ايه هو السكر\nالمساعد: السكر (أو داء السكري) هو مرض مزمن يحدث عندما يكون الجسم غير قادر على إنتاج الأنسولين الكافي، أو عندما لا يستطيع استخدام الأنسولين الذي ينتجه بفعالية. الأنسولين هو هرمون ضروري يسمح للسكر (الجلوكوز) بالدخول إلى خلايا الجسم لتزويدها بالطاقة. عندما لا يعمل الأنسولين بشكل صحيح، يتراكم السكر في الدم، مما يؤدي إلى ارتفاع مستويات السكر في الدم (ارتفاع السكر في الدم)، وهذا يمكن أن يسبب مشاكل صحية خطيرة بمرور الوقت إذا لم يتم التحكم فيه.",
+      "source": "ai",
+      "severity": "info",
+      "metadata": {}
+    },
+    {
+      "id": "20260203223902697147",
+      "timestamp": "2026-02-03T22:39:02.697147",
+      "type": "chat",
+      "content": "المريض: what is diabetes\nالمساعد: Diabetes mellitus is a chronic metabolic disorder characterized by elevated blood glucose levels (hyperglycemia). This occurs either because the pancreas does not produce enough insulin, or because the body cannot effectively use the insulin it produces. Insulin is a hormone that regulates blood sugar by allowing glucose to enter cells for energy. Uncontrolled high blood sugar can lead to serious complications affecting various organs over time.",
+      "source": "ai",
+      "severity": "info",
+      "metadata": {}
+    },
+    {
+      "id": "20260203223917644899",
+      "timestamp": "2026-02-03T22:39:17.644899",
+      "type": "chat",
+      "content": "المريض: what is diabetes\nالمساعد: أهلاً بيك! السكر ده مرض مزمن بيحصل لما الجسم مبيقدرش ينتج الأنسولين الكافي، أو لما مبيقدرش يستخدم الأنسولين اللي بينتجه بشكل كويس. الأنسولين ده هرمون مهم بيساعد السكر يدخل الخلايا عشان تديها طاقة. ولما الأنسولين مبيشتغلش صح، السكر بيتراكم في الدم وممكن يعمل مشاكل صحية كتير.",
+      "source": "ai",
+      "severity": "info",
+      "metadata": {}
+    },
+    {
+      "id": "20260203224352896927",
+      "timestamp": "2026-02-03T22:43:52.896927",
+      "type": "chat",
+      "content": "المريض: what is diabetes\nالمساعد: Diabetes mellitus (ICD‑10 E10‑E14) is a chronic metabolic disorder characterized by persistent hyperglycemia resulting from defects in insulin secretion, insulin action, or both. The elevated blood glucose leads to disturbances in carbohydrate, fat, and protein metabolism and, over time, can cause microvascular complications (retinopathy, nephropathy, neuropathy) and macrovascular disease (coronary artery disease, cerebrovascular disease, peripheral arterial disease).\n\n**Major classifications (p",
+      "source": "ai",
+      "severity": "info",
+      "metadata": {}
+    },
+    {
+      "id": "20260203224500713636",
+      "timestamp": "2026-02-03T22:45:00.713636",
+      "type": "chat",
+      "content": "المريض: ايه هو السكر\nالمساعد: السكر (Diabetes mellitus) هو اضطراب أيضي مزمن يتميز بارتفاع مستويات الجلوكوز في الدم (فرط سكر الدم) نتيجة لخلل في إفراز الإنسولين أو في استجابة الجسم للإنسولين أو كليهما. يتسبب هذا الارتفاع المستمر في الجلوكوز في اضطراب استقلاب الكربوهيدرات والدهون والبروتينات، ويمكن أن يؤدي إلى مضاعفات دقيقة (مثل اعتلال الشبكية، الفشل الكلوي، الاعتلال العصبي) ومضاعفات واسعة (مثل أمراض القلب والشرايين والسكتة الدماغية).  \n\n**التصنيفات الرئيسية وفقًا للمنظمة العالمية للصحة (WHO) وجمعية السكري الأمريكية (ADA):**  ",
+      "source": "ai",
+      "severity": "info",
+      "metadata": {}
+    },
+    {
+      "id": "20260203224632954848",
+      "timestamp": "2026-02-03T22:46:32.954848",
+      "type": "chat",
+      "content": "المريض: ايه هو السكر\nالمساعد: السكر (Diabetes mellitus) هو اضطراب مزمن في الجسم بيخلي مستوى الجلوكوز (السكر) في الدم يطلع فوق الطبيعي. ده بيحصل لما البنكرياس ما ينتجش كمية كافية من الإنسولين أو الجسم ما يقدرش يستخدم الإنسولين بشكل صحيح. الإنسولين هو الهرمون اللي بيساعد الخلايا تمتص الجلوكوز وتستعمله للطاقة، ولما يبقى فيه نقص أو مقاومة للإنسولين، الجلوكوز بيتراكم في الدم.\n\n**أنواع السكر الرئيسية:**\n- **النوع الأول:** بيظهر غالبًا عند الأطفال والشباب، وبيكون بسبب تدمير خلايا البنكرياس للإنسولين. محتاج حقن إنسولين طول العمر.\n- ",
+      "source": "ai",
+      "severity": "info",
+      "metadata": {}
+    },
+    {
+      "id": "20260203224725336731",
+      "timestamp": "2026-02-03T22:47:25.336731",
+      "type": "chat",
+      "content": "المريض: what is diabetes\nالمساعد: السكر (Diabetes mellitus) هو اضطراب مزمن في الجسم بيخلي مستوى الجلوكوز (السكر) في الدم يطلع فوق الطبيعي. ده بيحصل لما البنكرياس ما ينتجش كمية كافية من الإنسولين أو الجسم ما يقدرش يستخدم الإنسولين بشكل صحيح. الإنسولين هو الهرمون اللي بيساعد الخلايا تمتص الجلوكوز وتستعمله للطاقة، ولما يبقى فيه نقص أو مقاومة للإنسولين، الجلوكوز بيتراكم في الدم.\n\n**أنواع السكر الرئيسية:**\n- **النوع الأول:** بيظهر غالبًا عند الأطفال والشباب، وبيكون بسبب تدمير خلايا البنكرياس للإنسولين. محتاج حقن إنسولين طول العمر.\n- ",
+      "source": "ai",
+      "severity": "info",
+      "metadata": {}
+    }
+  ],
+  "warnings": [],
+  "medications": [
+    {
+      "id": "20260203223636238757",
+      "name": "Metformin 1000mg",
+      "dosage": null,
+      "frequency": null,
+      "notes": null,
+      "added_at": "2026-02-03T22:36:36.238757",
+      "active": true
+    },
+    {
+      "id": "20260203223636262481",
+      "name": "Lisinopril 10mg",
+      "dosage": null,
+      "frequency": null,
+      "notes": null,
+      "added_at": "2026-02-03T22:36:36.262481",
+      "active": true
+    },
+    {
+      "id": "20260203223636288327",
+      "name": "Atorvastatin 20mg",
+      "dosage": null,
+      "frequency": null,
+      "notes": null,
+      "added_at": "2026-02-03T22:36:36.288327",
+      "active": true
+    },
+    {
+      "id": "20260203223709285297",
+      "name": "Panadol",
+      "dosage": "500mg",
+      "frequency": "When needed",
+      "notes": "For headache",
+      "added_at": "2026-02-03T22:37:09.285297",
+      "active": true
+    }
+  ],
+  "conditions": [
+    "Hypertension",
+    "Type 2 Diabetes",
+    "High Cholesterol"
+  ],
+  "allergies": [],
+  "family_history": [
+    {
+      "id": "20260203223737555041",
+      "relation": "father",
+      "condition": "Heart Disease",
+      "notes": "Diagnosed at age 50",
+      "added_at": "2026-02-03T22:37:37.555041"
+    }
+  ]
+}

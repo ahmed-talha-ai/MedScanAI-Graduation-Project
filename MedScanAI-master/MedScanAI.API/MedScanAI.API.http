@@ -1,0 +1,6 @@
+@MedScanAI.API_HostAddress = http://localhost:5223
+
+GET {{MedScanAI.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
