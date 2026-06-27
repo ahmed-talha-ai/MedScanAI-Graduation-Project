@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace MedScanAI.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/WhatsAppWebhook")]
     [ApiController]
     public class WhatsAppWebhookController : ControllerBase
     {
@@ -70,7 +70,7 @@ namespace MedScanAI.API.Controllers
                                     _logger.LogInformation("Received message from {PhoneNumber}. Sending auto-reply...", senderPhoneNumber);
 
                                     // Send the auto-reply
-                                    var replyText = "شكراً لتواصلكم مع MediScan. هذا الرقم مخصص للإشعارات التلقائية فقط.";
+                                    var replyText = "شكراً لتواصلكم مع MediScan. هذا الرقم مخصص للإشعارات التلقائية فقط. 🤖💬";
                                     
                                     // Send async without waiting to quickly return 200 OK to Meta
                                     _ = _whatsAppService.SendTextMessageAsync(senderPhoneNumber, replyText);

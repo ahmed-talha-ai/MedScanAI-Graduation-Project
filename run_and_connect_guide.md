@@ -203,6 +203,8 @@ or
 cd "D:\University\Graduation Project\Final Folder\Notebooks\mediscan-web"
 npm install
 npm run dev
+ngrok http --domain=reentry-obsessed-jumbo.ngrok-free.dev https://localhost:7196
+
 ```
 
 Frontend runs at: **http://localhost:5173/**
