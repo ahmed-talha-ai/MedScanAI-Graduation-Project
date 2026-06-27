@@ -69,6 +69,10 @@ venv.bak/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*.ipynb
+
+# Project Folders to ignore
+Phases/
 
 # Logs and databases
 logs
