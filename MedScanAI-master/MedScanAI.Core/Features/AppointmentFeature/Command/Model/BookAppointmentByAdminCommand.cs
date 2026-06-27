@@ -10,6 +10,6 @@ namespace MedScanAI.Core.Features.AppointmentFeature.Command.Model
         public string DoctorId { get; set; }
         public DateTime Date { get; set; }
         public string Reason { get; set; } = string.Empty;
-        public string Status { get; set; }
+        public string Status { get; set; } = "Confirmed";
     }
 }

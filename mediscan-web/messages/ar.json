@@ -81,7 +81,34 @@
     },
     "footer": "تشخيصات مدعومة بالذكاء الاصطناعي — ليست بديلاً عن المشورة الطبية المتخصصة.",
     "testimonialsTitle": "ماذا يقول مرضانا",
-    "testimonialsSubtitle": "اقرأ التقييمات الحقيقية من المستخدمين."
+    "testimonialsSubtitle": "اقرأ التقييمات الحقيقية من المستخدمين.",
+    "verifiedUser": "مستخدم موثق",
+    "fallbackReviews": {
+      "r1": {
+        "name": "أحمد",
+        "comment": "تشخيص الذكاء الاصطناعي كان دقيق جداً وساعدني أفهم نتائج التحاليل بوضوح."
+      },
+      "r2": {
+        "name": "سارة",
+        "comment": "حجز المواعيد بقى سهل جداً. الجدولة الذكية وفرت عليّ وقت كتير."
+      },
+      "r3": {
+        "name": "محمد",
+        "comment": "ميزة التقارير الطبية ثنائية اللغة ممتازة — عربي ليّ وإنجليزي للدكتور."
+      },
+      "r4": {
+        "name": "فاطمة",
+        "comment": "استخدمت دليل الفحص الذاتي للثدي واطمنّيت جداً. منصة رائعة!"
+      },
+      "r5": {
+        "name": "عمر",
+        "comment": "فاحص الأدوية المحظورة نبّهني لتفاعل خطير. ممكن يكون أنقذ حياتي!"
+      },
+      "r6": {
+        "name": "نور",
+        "comment": "الشات بوت جاوب على كل أسئلتي الطبية فوراً. حاسّة إن معايا دكتور ٢٤ ساعة."
+      }
+    }
   },
   "auth": {
     "login": {
@@ -252,56 +279,18 @@
       "viewAll": "عرض الكل",
       "noAppointments": "لا توجد مواعيد قادمة",
       "noAppointmentsSubtitle": "احجز موعدك الأول للبدء في رعايتك الصحية.",
+      "statusPending": "قيد الانتظار",
+      "statusConfirmed": "مؤكد",
+      "statusCompleted": "مكتمل",
+      "statusCancelled": "ملغى",
       "chronicDiseases": "الأمراض المزمنة",
       "allergies": "الحساسية",
       "medications": "الأدوية",
       "noneRecorded": "لا يوجد تسجيل"
     },
-    "doctor": {
-      "greeting": "صباح الخير، د. {name}.",
-      "subtitle": "إليك نظرة عامة على عملك اليوم.",
-      "todaysLoad": "أعباء اليوم",
-      "totalPatients": "إجمالي المرضى",
-      "launchAiTools": "إطلاق أدوات الذكاء الاصطناعي",
-      "todaysSchedule": "جدول اليوم",
-      "patientRegistry": "سجل المرضى",
-      "noAppointmentsToday": "لا مواعيد اليوم",
-      "noPatients": "لا يوجد مرضى",
-      "viewAll": "عرض الكل",
-      "manage": "إدارة",
-      "appointments": "مواعيد المرضى",
-      "appointmentsSubtitle": "إدارة المواعيد وعرض تقارير المرضى.",
-      "filterAll": "الكل",
-      "filterToday": "اليوم",
-      "filterCompleted": "المكتملة",
-      "markComplete": "تعيين كمكتمل",
-      "viewReport": "عرض التقرير",
-      "profile": "ملفي الشخصي",
-      "profileSubtitle": "معلومات حسابك ونظرة عامة على العيادة.",
-      "patientDetail": "تفاصيل المريض",
-      "visitSnapshot": "نظرة عامة على الزيارة",
-      "scheduledDate": "تاريخ الموعد",
-      "reason": "السبب",
-      "patientId": "رقم المريض",
-      "lastVisit": "آخر زيارة",
-      "sendMessage": "إرسال رسالة",
-      "comingSoon": "قريباً",
-      "drugWarnings": "تحذيرات التفاعلات الدوائية",
-      "reviewRequired": "يتطلب المراجعة",
-      "warningServiceOffline": "خدمة تحذيرات الذكاء الاصطناعي غير متصلة. فحص التفاعلات الدوائية غير متاح.",
-      "noWarnings": "لم يتم اكتشاف أي تحذيرات نشطة.",
-      "runExamination": "إجراء فحص",
-      "chronicDiseases": "الأمراض المزمنة",
-      "allergies": "الحساسية",
-      "currentMedications": "الأدوية الحالية",
-      "noRecords": "لا توجد سجلات",
-      "completed": "مكتمل",
-      "goBack": "العودة",
-      "patientNotFound": "المريض غير موجود",
-      "patientNotFoundSubtitle": "ربما تمت إزالة هذا المريض أو أن الرابط غير صالح."
-    },
     "admin": {
       "greeting": "مرحباً، مشرف.",
+      "welcomeMessage": "مرحباً، مشرف",
       "subtitle": "لوحة إدارة المنظومة.",
       "totalDoctors": "إجمالي الأطباء",
       "totalPatients": "إجمالي المرضى",
@@ -309,7 +298,7 @@
       "systemUptime": "استقرار النظام",
       "quickActions": "الإجراءات السريعة",
       "todaysSchedule": "مواعيد اليوم",
-      "noAppointmentsToday": "لا مواعيد اليوم",
+      "noAppointmentsToday": "لا توجد مواعيد اليوم",
       "addDoctor": "إضافة طبيب",
       "addAdmin": "إضافة مشرف",
       "walkInBooking": "حجز زيارة",
@@ -318,6 +307,43 @@
       "addDoctorTitle": "إضافة طبيب جديد",
       "addAdminTitle": "إضافة مشرف جديد",
       "bookAppointmentTitle": "حجز زيارة مباشرة",
+      "addDoctorDesc": "تسجيل حساب طبيب جديد",
+      "addAdminDesc": "إنشاء حساب مسؤول جديد",
+      "walkInBookingDesc": "حجز موعد لمريض",
+      "doctorManagementDesc": "عرض وإدارة جميع الأطباء",
+      "open": "فتح",
+      "patient": "المريض",
+      "doctor": "الطبيب",
+      "time": "الوقت",
+      "status": "الحالة",
+      "actions": "الإجراءات",
+      "confirm": "تأكيد",
+      "whatsappTestPanel": "🧪 اختبار إشعارات واتساب",
+      "testPhone": "رقم الهاتف",
+      "invalidPhone": "رقم غير صالح. يجب أن يبدأ بـ +2",
+      "breastTestTitle": "تذكير الفحص الشهري",
+      "patientName": "اسم المريضة / المريض",
+      "sendBreastTest": "إرسال تذكير الفحص",
+      "apptTestTitle": "تأكيد موعد",
+      "doctorName": "اسم الدكتور",
+      "sendApptTest": "إرسال تأكيد الموعد",
+      "whatsappSuccess": "تم الإرسال بنجاح!",
+      "whatsappError": "حدث خطأ أثناء الإرسال",
+      "cancel": "إلغاء",
+      "pending": "معلق",
+      "confirmed": "مؤكد",
+      "completed": "مكتمل",
+      "cancelled": "ملغى",
+      "appointmentConfirmed": "تم تأكيد الموعد",
+      "appointmentCancelled": "تم إلغاء الموعد",
+      "failedConfirm": "فشل في التأكيد",
+      "failedCancel": "فشل في الإلغاء",
+      "networkError": "خطأ في الشبكة",
+      "retry": "إعادة المحاولة",
+      "refresh": "تحديث",
+      "filterByDoctor": "الطبيب",
+      "allDoctors": "جميع الأطباء",
+      "dailyAppointments": "المواعيد اليومية",
       "doctorsPage": {
         "drPrefix": "د. ",
         "title": "إدارة الأطباء",
@@ -357,7 +383,7 @@
     "no": "لا",
     "extractedAnalysis": "التحليل المستخرج",
     "uploadedDocument": "المستند المرفوع",
-    "chatStartMessage": "مرحباً! أنا مساعدك الطبي الذكي. كيف يمكنني مساعدتك اليوم؟",
+    "chatStartMessage": "مرحباً! أنا مساعدك الطبي الذكي من MediScan AI. كيف يمكنني مساعدتك اليوم؟",
     "chatInputPlaceholder": "اسأل سؤالاً طبياً...",
     "recentDiagnoses": "التشخيصات الأخيرة",
     "launchAnalysis": "بدء التحليل",
@@ -368,7 +394,7 @@
         "desc": "تحديد وتصنيف أورام المخ من صور الرنين المغناطيسي."
       },
       "xray": {
-        "title": "تحليل الأشعة السينية",
+        "title": "تحليل أشعة الصدر",
         "subtitle": "تحليل صور الصدر",
         "desc": "كشف الحالات الرئوية من الأشعة السينية للصدر."
       },
@@ -408,13 +434,21 @@
     "analyseAnotherReport": "تحليل تقرير آخر",
     "analyseBtn": "تحليل",
     "chatPlaceholder": "اسأل سؤالاً طبياً...",
-    "chatbotWelcome": "مرحباً! أنا مساعدك الطبي الذكي. كيف يمكنني مساعدتك اليوم؟",
+    "chatbotWelcome": "مرحباً! أنا مساعدك الطبي الذكي من MediScan AI. كيف يمكنني مساعدتك اليوم؟",
     "emergencyNote": "إذا كنت تعاني من حالة طبية طارئة، اتصل برقم الطوارئ المحلي فوراً.",
     "medicalDisclaimer": "التحليل المدعوم بالذكاء الاصطناعي ليس بديلاً عن الاستشارة الطبية المتخصصة",
     "processing": "جاري معالجة الفحص...",
     "processingDesc": "نموذج الذكاء الاصطناعي يحلل صورتك الطبية. قد يستغرق ذلك بضع لحظات.",
     "qualityTitle": "متطلبات الجودة",
-    "chatbotSubtitle": "مرشدك الصحي الشخصي بالذكاء الاصطناعي"
+    "qualityPosTitle": "الوضعية الصحيحة",
+    "qualityPosDesc": "تأكد من أن المنطقة التشريحية بالكامل واضحة في الإطار.",
+    "qualityContrastTitle": "التباين والدقة",
+    "qualityContrastDesc": "تنتج الصور ذات التباين العالي والدقة العالية نتائج أكثر دقة.",
+    "qualityArtefactsTitle": "تجنب التشويش",
+    "qualityArtefactsDesc": "قد يقلل ضبابية الحركة أو التعرض الخاطئ للضوء من دقة التشخيص.",
+    "uploadedImage": "الصورة المرفوعة",
+    "chatbotSubtitle": "مرشدك الصحي الشخصي بالذكاء الاصطناعي",
+    "newChat": "محادثة جديدة"
   },
   "appointments": {
     "title": "مواعيدي",
@@ -518,7 +552,8 @@
       "saveToRecord": "حفظ في سجل المريض",
       "savedSuccessfully": "تم حفظ النتائج بنجاح",
       "lastCompleted": "آخر فحص مكتمل: {date}",
-      "remindMonthly": "ذكرني شهرياً"
+      "remindMonthly": "ذكرني شهرياً",
+      "finish": "إنهاء الفحص"
     },
     "brainTumor": {
       "title": "الفحص الذاتي لأورام المخ",
@@ -727,16 +762,16 @@
   },
   "children": {
     "title": "مجموعة صحة الأطفال",
-    "subtitle": "8 أدوات تعمل بدون إنترنت. تظل جميع البيانات على جهازك.",
-    "offlineBadge": "يعمل بالكامل بدون اتصال",
-    "savedLocallyBadge": "حفظ محلي للبيانات",
-    "privacyFirstBadge": "الخصوصية أولاً",
+    "subtitle": "8 أدوات صحية لمتابعة نمو طفلك ومراقبة أعراضه وصحته.",
+    "offlineBadge": "8 أداة متخصصة",
+    "savedLocallyBadge": "أدوات طب الأطفال",
+    "privacyFirstBadge": "سهلة الاستخدام",
     "chooseTool": "اختر أداة",
     "openTool": "فتح الأداة",
     "medicalDisclaimer": "إخلاء مسؤولية طبي:",
     "disclaimerText": "هذه الأدوات للأغراض التعليمية والإرشادية فقط. يجب دائماً استشارة طبيب أطفال مؤهل للحصول على المشورة الطبية أو التشخيص أو العلاج.",
     "backToHub": "رجوع",
-    "offlineDataNote": "يعمل بدون اتصال — يتم حفظ البيانات على جهازك",
+    "offlineDataNote": "تابع بيانات صحة طفلك",
     "growth": {
       "addEntry": "إضافة سجل جديد",
       "date": "التاريخ",
@@ -746,7 +781,9 @@
       "growthChart": "مخطط النمو",
       "height": "الطول (سم)",
       "weight": "الوزن (كجم)",
-      "history": "السجلات السابقة ({count} سجلات)"
+      "history": "السجلات السابقة ({count} سجلات)",
+      "lastMeasurement": "آخر قياس",
+      "chartMinEntries": "أضف سجلين على الأقل لعرض الرسم البياني"
     },
     "bmi": {
       "weightKg": "الوزن (كجم)",
@@ -775,7 +812,8 @@
       "triageHome": "راحة ورعاية منزلية",
       "descUrgent": "تم اكتشاف عَرَض أو أكثر من الأعراض الخطيرة. توجه إلى الطوارئ فوراً.",
       "descWatch": "تتطلب الأعراض زيارة الطبيب في غضون 24 ساعة.",
-      "descHome": "الأعراض خفيفة. تابع حالة الطفل بعناية ودعه يرتاح."
+      "descHome": "الأعراض خفيفة. تابع حالة الطفل بعناية ودعه يرتاح.",
+      "severityLevel": "مستوى الخطورة"
     },
     "milestones": {
       "achievedCount": "تم تحقيق {count} من {total}",
@@ -804,7 +842,9 @@
       "paraFreq": "كل 4–6 ساعات (حد أقصى 4 جرعات في اليوم)",
       "ibuFreq": "كل 6–8 ساعات (حد أقصى 3 جرعات في اليوم)",
       "warningLabel": "⚠ تحذير: ",
-      "warningText": "استشر الطبيب دائماً. لا تتجاوز الجرعة اليومية القصوى الموصى بها."
+      "warningText": "استشر الطبيب دائماً. لا تتجاوز الجرعة اليومية القصوى الموصى بها.",
+      "comparison": "مقارنة الجرعات",
+      "weightWarning": "الوزن خارج النطاق الآمن. استشر الطبيب."
     },
     "vaccines": {
       "completedCount": "التطعيمات المكتملة",
@@ -816,7 +856,8 @@
       "m4": "4 أشهر",
       "m6": "6 أشهر",
       "m12": "12 شهراً",
-      "m18": "18 شهراً"
+      "m18": "18 شهراً",
+      "nextDue": "التالي"
     },
     "food": {
       "age0_6": "0–6 أشهر",
@@ -894,7 +935,8 @@
       "headStep2": "ضع كيس ثلج ملفوفاً بقطعة قماش لمدة 20 دقيقة",
       "headStep3": "راقب الطفل بعناية فائقة لمدة 24 ساعة",
       "headStep4": "توجه للطوارئ فوراً إذا فقد الوعي، أو تقيأ، أو حدثت تشنجات",
-      "headStep5": "تجنب إعطاء مسكنات قوية قد تخفي أعراض إصابة الدماغ"
+      "headStep5": "تجنب إعطاء مسكنات قوية قد تخفي أعراض إصابة الدماغ",
+      "stepOf": "الخطوة {step} من {total}"
     },
     "units": {
       "cm": "سم",
@@ -906,35 +948,43 @@
     "tools": {
       "growth-tracker": {
         "title": "متابع النمو",
-        "desc": "سجل وتتبع الطول والوزن مع مرور الوقت"
+        "desc": "سجل وتتبع الطول والوزن مع مرور الوقت",
+        "badge": "معايير WHO"
       },
       "bmi-calculator": {
         "title": "حاسبة مؤشر كتلة الجسم",
-        "desc": "احسب مؤشر كتلة الجسم وفئة الوزن المناسبة"
+        "desc": "احسب مؤشر كتلة الجسم وفئة الوزن المناسبة",
+        "badge": "دقيق"
       },
       "symptom-checker": {
         "title": "مقيّم الأعراض",
-        "desc": "إرشادات الفحص والفرز للأعراض الشائعة للأطفال"
+        "desc": "إرشادات الفحص والفرز للأعراض الشائعة للأطفال",
+        "badge": "موصى به"
       },
       "milestones": {
         "title": "تطور نمو الطفل",
-        "desc": "تتبع المهارات والقدرات الحركية والذهنية لكل عمر"
+        "desc": "تتبع المهارات والقدرات الحركية والذهنية لكل عمر",
+        "badge": "تفاعلي"
       },
       "dosage-calculator": {
         "title": "حاسبة جرعة الدواء",
-        "desc": "حساب جرعات الباراسيتامول والإيبوبروفين بناءً على الوزن"
+        "desc": "حساب جرعات الباراسيتامول والإيبوبروفين بناءً على الوزن",
+        "badge": "آمن"
       },
       "vaccination-tracker": {
         "title": "جدول التطعيمات",
-        "desc": "تسجيل ومتابعة جدول تطعيمات طفلك بدقة"
+        "desc": "تسجيل ومتابعة جدول تطعيمات طفلك بدقة",
+        "badge": "منظم"
       },
       "food-guide": {
         "title": "دليل الغذاء",
-        "desc": "الأطعمة المناسبة لكل عمر: الآمنة، والممنوعة، والمسموح بإدخالها"
+        "desc": "الأطعمة المناسبة لكل عمر: الآمنة، والممنوعة، والمسموح بإدخالها",
+        "badge": "شامل"
       },
       "first-aid": {
         "title": "دليل الإسعافات الأولية",
-        "desc": "دليل خطوة بخطوة للتعامل مع 10 حالات طارئة شائعة"
+        "desc": "دليل خطوة بخطوة للتعامل مع 10 حالات طارئة شائعة",
+        "badge": "ضروري"
       }
     }
   },
@@ -1069,6 +1119,11 @@
     "successDesc": "تم جدولة موعد الزيارة المباشرة بحالة قيد الانتظار."
   },
   "doctorDash": {
+    "goodMorning": "صباح الخير",
+    "todaysLoad": "حمل اليوم",
+    "appointmentsCount": "{count} موعد اليوم",
+    "patientRegistry": "سجل المرضى",
+    "todaysSchedule": "جدول اليوم",
     "failedLoad": "فشل تحميل لوحة التحكم",
     "failedLoadAppts": "فشل تحميل المواعيد",
     "noApptsToday": "لا توجد مواعيد اليوم",
@@ -1104,6 +1159,19 @@
     "profileNotice": "يتم إدارة تعديل الملف الشخصي من قبل مسؤول العيادة. تواصل مع المسؤول لتحديث بياناتك الشخصية أو تخصصك.",
     "viewAppts": "عرض المواعيد",
     "aiTools": "أدوات الذكاء الاصطناعي"
+  },
+  "loader": {
+    "system": "جارٍ تحميل النظام...",
+    "securing": "جاري تأمين الاتصال...",
+    "models": "تحميل النماذج الطبية",
+    "connection": "تأمين الاتصال",
+    "diagnostics": "معايرة التشخيصات",
+    "workspace": "تجهيز مساحة العمل",
+    "credentials": "التحقق من الصلاحيات",
+    "neural": "تحميل الشبكات العصبية",
+    "patientData": "مزامنة بيانات المريض",
+    "aiCore": "تهيئة نواة الذكاء الاصطناعي",
+    "tagline": "منصة الذكاء الاصطناعي السريري"
   },
   "editorial": {
     "tagline": "منصة الذكاء الاصطناعي الطبي",
@@ -1176,5 +1244,63 @@
     "rating": "التقييم",
     "filters": "عوامل التصفية",
     "clear": "مسح"
+  },
+  "doctor": {
+    "greeting": "صباح الخير، د. {name}.",
+    "subtitle": "إليك نظرة عامة على عملك اليوم.",
+    "todaysLoad": "أعباء اليوم",
+    "totalPatients": "إجمالي المرضى",
+    "launchAiTools": "إطلاق أدوات الذكاء الاصطناعي",
+    "todaysSchedule": "جدول اليوم",
+    "patientRegistry": "سجل المرضى",
+    "noAppointmentsToday": "لا مواعيد اليوم",
+    "noPatients": "لا يوجد مرضى مسجلين",
+    "viewAll": "عرض الكل",
+    "manage": "إدارة",
+    "appointments": "المواعيد",
+    "appointmentsSubtitle": "إدارة مواعيد وجداول مرضاك",
+    "filterAll": "الكل",
+    "filterToday": "اليوم",
+    "filterCompleted": "المكتملة",
+    "markComplete": "تحديد كمكتمل",
+    "viewReport": "عرض تقرير الذكاء الاصطناعي",
+    "profile": "ملفي الشخصي",
+    "profileSubtitle": "معلومات حسابك ونظرة عامة على العيادة.",
+    "patientDetail": "تفاصيل المريض",
+    "visitSnapshot": "ملخص الزيارة",
+    "scheduledDate": "تاريخ الموعد",
+    "reason": "سبب الزيارة",
+    "patientId": "رقم المريض",
+    "lastVisit": "آخر زيارة",
+    "sendMessage": "إرسال رسالة",
+    "comingSoon": "قريباً!",
+    "drugWarnings": "تحذيرات الأدوية",
+    "reviewRequired": "تتطلب مراجعة",
+    "warningServiceOffline": "خدمة التحذيرات غير متصلة",
+    "noWarnings": "لا توجد تحذيرات.",
+    "runExamination": "إجراء فحص الأعصاب",
+    "chronicDiseases": "الأمراض المزمنة",
+    "allergies": "الحساسية",
+    "currentMedications": "الأدوية الحالية",
+    "noRecords": "لا توجد سجلات",
+    "completed": "مكتمل",
+    "goBack": "رجوع",
+    "patientNotFound": "المريض غير موجود",
+    "patientNotFoundSubtitle": "المريض الذي تبحث عنه غير موجود أو تم حذفه.",
+    "noApptsToday": "لا توجد مواعيد اليوم",
+    "today": "اليوم",
+    "runExam": "إجراء فحص",
+    "aiTools": "أدوات الذكاء الاصطناعي",
+    "more": "+{count} أخرى",
+    "viewAllPatients": "عرض كل الـ {count} مرضى",
+    "title": "تقرير الذكاء الاصطناعي",
+    "patientLabel": "المريض: {name}",
+    "downloadPdf": "تحميل PDF",
+    "close": "إغلاق",
+    "failedLoad": "فشل تحميل البيانات",
+    "updateReport": "تحديث التقرير",
+    "generateReport": "إنشاء التقرير",
+    "scheduled": "مُجدول",
+    "noReportYet": "لم يتم إنشاء تقرير بعد. انقر على \"إنشاء التقرير\" لتشغيل تحليل الذكاء الاصطناعي."
   }
 }

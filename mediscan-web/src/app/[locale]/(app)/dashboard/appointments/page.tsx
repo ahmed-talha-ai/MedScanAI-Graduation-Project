@@ -6,16 +6,17 @@ import { appointmentService } from '@/services/appointmentService';
 import type { AppointmentResponse, DoctorForAppointment, BookAppointmentPayload } from '@/types/api';
 import { SkeletonRow } from '@/components/ui/Skeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
 import { useTranslations, useLocale } from 'next-intl';
 
 // ─── Status config ──────────────────────────────────────────────────────────
 const STATUS_CFG: Record<string, { classes: string; icon: string }> = {
-  Pending:   { classes: 'bg-secondary/10 text-secondary',       icon: 'schedule' },
-  Confirmed: { classes: 'bg-primary/10 text-primary',            icon: 'event_available' },
-  Completed: { classes: 'bg-surface-container-high text-on-surface-variant', icon: 'check_circle' },
-  Cancelled: { classes: 'bg-error-container text-error',         icon: 'cancel' },
+  Pending:   { classes: 'badge-base badge-pending',   icon: 'schedule' },
+  Confirmed: { classes: 'badge-base badge-confirmed', icon: 'event_available' },
+  Completed: { classes: 'badge-base badge-completed', icon: 'check_circle' },
+  Cancelled: { classes: 'badge-base badge-cancelled', icon: 'cancel' },
 };
 
 type Tab = 'All' | 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled';
@@ -92,7 +93,7 @@ function BookingModal({
       doctorId: selectedDoctor.id,
       date: dateTime,
       reason,
-      status: 'Pending',
+      status: 'Confirmed',
     };
     try {
       const res = await appointmentService.bookAppointment(payload);
@@ -302,19 +303,20 @@ export default function AppointmentsPage() {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Header */}
-      <section className="flex flex-col md:flex-row justify-between md:items-end gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-primary">{t('title')}</h1>
-          <p className="text-on-surface-variant mt-1">{t('subtitle')}</p>
-        </div>
-        <button
-          onClick={() => setShowModal(true)}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full signature-gradient text-white font-semibold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all ambient-shadow"
-        >
-          <span className="material-symbols-outlined">add</span>
-          {t('bookNew')}
-        </button>
-      </section>
+      <DashboardHero
+        icon="calendar_month"
+        title={t('title')}
+        subtitle={t('subtitle')}
+        action={
+          <button
+            onClick={() => setShowModal(true)}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-primary font-bold hover:bg-surface-container-lowest transition-colors shadow-lg active:scale-95"
+          >
+            <span className="material-symbols-outlined">add</span>
+            {t('bookNew')}
+          </button>
+        }
+      />
 
       {/* Tabs */}
       <div className="overflow-x-auto w-fit max-w-full">

@@ -34,7 +34,7 @@ export function TopNavBar() {
     { key: 'aiTools', titleFallback: 'AI Tools', icon: 'psychology', href: '/dashboard/ai-tools', roles: ['Patient', 'Doctor'], searchTerms: ['ذكاء اصطناعي', 'ادوات', 'تحليل', 'ai', 'tools', 'analysis'] },
     { key: 'neurologicalExam', titleFallback: 'Neurological Exam', icon: 'medical_information', href: '/doctor/examination', roles: ['Doctor'], searchTerms: ['فحص اعصاب', 'فحص', 'neurological exam', 'examination'] },
     { key: 'children', titleFallback: 'Children', icon: 'child_care', href: '/dashboard/children', roles: ['Patient'], searchTerms: ['اطفال', 'نمو', 'تطعيمات', 'children', 'growth', 'vaccines'] },
-    { key: 'selfExam', titleFallback: 'Self Examination', icon: 'accessibility_new', href: '/dashboard/self-exam', roles: ['Patient'], searchTerms: ['فحص ذاتي', 'self exam'] },
+    { key: 'selfExam', titleFallback: 'Self Examination', icon: 'accessibility_new', href: '/examinations', roles: ['Patient', 'Doctor'], searchTerms: ['فحص ذاتي', 'self exam'] },
     { key: 'settings', titleFallback: 'Settings', icon: 'settings', href: '/settings', roles: ['Patient', 'Doctor', 'Admin'], searchTerms: ['اعدادات', 'حساب', 'settings', 'account'] },
     { key: 'ourDoctors', titleFallback: 'Our Doctors', icon: 'groups', href: '/dashboard/our-doctors', roles: ['Patient', 'Admin'], searchTerms: ['اطباؤنا', 'دكاترة', 'our doctors', 'doctors'] },
   ];

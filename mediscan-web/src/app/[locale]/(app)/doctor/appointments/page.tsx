@@ -9,6 +9,7 @@ import type { DoctorPatientEntry } from '@/types/api';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 function isToday(dateStr: string): boolean {
@@ -94,7 +95,7 @@ function AppointmentCard({
             </div>
 
             {isCompleted && (
-              <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+              <span className="badge-base badge-completed flex items-center gap-1">
                 <span className="material-symbols-outlined text-sm">check_circle</span>
                 {t('completed')}
               </span>
@@ -122,7 +123,9 @@ function AppointmentCard({
                 <span key={m} className="bg-primary/10 text-primary text-xs px-2.5 py-1 rounded-full font-medium">{m}</span>
               ))}
               {(entry.chronicDiseases.length + entry.allergies.length + entry.currentMedicine.length) > 6 && (
-                <span className="text-xs text-on-surface-variant bg-surface-container px-2 py-1 rounded-full">{t('more')}</span>
+                <span className="text-xs text-on-surface-variant bg-surface-container px-2 py-1 rounded-full">
+                  {t('more', { count: (entry.chronicDiseases.length + entry.allergies.length + entry.currentMedicine.length) - 6 })}
+                </span>
               )}
             </div>
           )}
@@ -259,10 +262,11 @@ export default function DoctorAppointmentsPage() {
         )}
 
         {/* Header */}
-        <section>
-          <h1 className="text-3xl font-bold text-primary">{t('appointmentsTitle')}</h1>
-          <p className="text-on-surface-variant mt-1">{t('appointmentsSubtitle')}</p>
-        </section>
+        <DashboardHero 
+          title={t('appointmentsTitle')} 
+          subtitle={t('appointmentsSubtitle')} 
+          icon="event" 
+        />
 
         {/* Filter tabs */}
         <div className="flex gap-1 bg-surface-container-high p-1 rounded-full w-fit overflow-x-auto">

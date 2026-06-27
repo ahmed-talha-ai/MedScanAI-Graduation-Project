@@ -6,6 +6,7 @@ import { adminService } from '@/services/adminService';
 import type { DoctorForAppointment } from '@/types/api';
 import { useTranslations } from 'next-intl';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 
 const inputCls = 'w-full bg-surface-container-low rounded-xl px-4 py-3 text-sm text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all border border-transparent focus:border-primary/30';
 
@@ -131,8 +132,11 @@ export default function BookAppointmentPage() {
           <span className="material-symbols-outlined text-base">arrow_back</span>
           {t('backToDashboard')}
         </button>
-        <h1 className="text-3xl font-bold text-primary">{t('title')}</h1>
-        <p className="text-on-surface-variant mt-1">{t('subtitle')}</p>
+        <DashboardHero 
+          title={t('title')} 
+          subtitle={t('subtitle')} 
+          icon="calendar_add_on" 
+        />
       </div>
 
       {/* Info note */}

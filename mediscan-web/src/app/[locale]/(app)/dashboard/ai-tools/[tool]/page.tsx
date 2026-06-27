@@ -3,6 +3,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuthStore } from '@/stores/authStore';
 import { aiService, streamAiEndpoint, type AiStreamChunk } from '@/services/aiService';
 import { saveDiagnosisResult, startChatSession, saveChatMessage, getChatHistory } from '@/services/persistenceService';
@@ -14,23 +15,43 @@ import { ANIM_CLASSES } from '@/lib/animations';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { Typewriter } from '@/components/ui/Typewriter';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
+import { DashboardHero } from '@/components/ui/DashboardHero';
+import {
+  Brain,
+  Ribbon,
+  Microscope,
+  ScanText,
+  BotMessageSquare,
+} from 'lucide-react';
+
+function LungsIcon({ size = 24, color = 'currentColor' }: { size?: number; color?: string; strokeWidth?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 4v10" />
+      <path d="M12 10c-1-2-3-3-5-3C4 7 2 10 2 13c0 3 1 6 4 6 1.5 0 3-.5 4-1.5" />
+      <path d="M12 10c1-2 3-3 5-3 3 0 5 3 5 6 0 3-1 6-4 6-1.5 0-3-.5-4-1.5" />
+      <path d="M6 17c0 1.5.5 2 2 2" />
+      <path d="M18 17c0 1.5-.5 2-2 2" />
+    </svg>
+  );
+}
 
 // ─── Tool config types ────────────────────────────────────────────────────────
 type ToolConfigType = {
   titleKey: string;
-  icon: string;
+  icon: React.ReactNode;
   type: 'image' | 'lab' | 'chat';
   uploadLabelKey: string;
   uploadDescKey: string;
 };
 
 const TOOL_CONFIG: Record<string, ToolConfigType> = {
-  'brain-tumor': { titleKey: 'brainTumor', icon: 'neurology', type: 'image', uploadLabelKey: 'brainTumorUpload', uploadDescKey: 'brainTumorDesc' },
-  'xray': { titleKey: 'chestXray', icon: 'radiology', type: 'image', uploadLabelKey: 'xrayUpload', uploadDescKey: 'xrayDesc' },
-  'skin': { titleKey: 'skinDisease', icon: 'dermatology', type: 'image', uploadLabelKey: 'skinUpload', uploadDescKey: 'skinDesc' },
-  'breast-cancer': { titleKey: 'breastCancer', icon: 'health_and_safety', type: 'image', uploadLabelKey: 'breastUpload', uploadDescKey: 'breastDesc' },
-  'lab-ocr': { titleKey: 'labOcr', icon: 'clinical_notes', type: 'lab', uploadLabelKey: 'labUpload', uploadDescKey: 'labDescText' },
-  'chatbot': { titleKey: 'chatbot', icon: 'smart_toy', type: 'chat', uploadLabelKey: '', uploadDescKey: '' },
+  'brain-tumor': { titleKey: 'brainTumor', icon: <Brain />, type: 'image', uploadLabelKey: 'brainTumorUpload', uploadDescKey: 'brainTumorDesc' },
+  'xray': { titleKey: 'chestXray', icon: <LungsIcon />, type: 'image', uploadLabelKey: 'xrayUpload', uploadDescKey: 'xrayDesc' },
+  'skin': { titleKey: 'skinDisease', icon: <Microscope />, type: 'image', uploadLabelKey: 'skinUpload', uploadDescKey: 'skinDesc' },
+  'breast-cancer': { titleKey: 'breastCancer', icon: <Ribbon />, type: 'image', uploadLabelKey: 'breastUpload', uploadDescKey: 'breastDesc' },
+  'lab-ocr': { titleKey: 'labOcr', icon: <ScanText />, type: 'lab', uploadLabelKey: 'labUpload', uploadDescKey: 'labDescText' },
+  'chatbot': { titleKey: 'chatbot', icon: <BotMessageSquare />, type: 'chat', uploadLabelKey: '', uploadDescKey: '' },
 };
 
 // ─── Confidence gauge ─────────────────────────────────────────────────────────
@@ -53,8 +74,8 @@ function ConfidenceGauge({ value }: { value: string }) {
       </div>
       <div className="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
         <div
-          className={`h-full rounded-full transition-all duration-1000 ease-out ${isHigh ? 'bg-primary' : isMed ? 'bg-secondary' : 'bg-tertiary'}`}
-          style={{ width: !mounted || isNaN(num) ? '0%' : `${Math.min(num, 100)}%` }}
+          className={`h-full rounded-full anim-bar-fill ${isHigh ? 'bg-primary' : isMed ? 'bg-secondary' : 'bg-tertiary'}`}
+          style={{ '--bar-target': isNaN(num) ? '0%' : `${Math.min(num, 100)}%` } as React.CSSProperties}
         />
       </div>
     </div>
@@ -69,7 +90,7 @@ function DiagnosisResult({ result, onReset, streaming = false }: { result: Model
   return (
     <div className="space-y-6">
       <RevealOnScroll direction="up" delay={0}>
-        <div className="bg-surface-container-lowest rounded-lg p-6 ambient-shadow ghost-border">
+        <div className="bg-surface-container-lowest rounded-lg p-6 ambient-shadow ghost-border anim-result-reveal">
           <div className="flex items-start justify-between mb-4">
           <div>
             <p className="text-xs font-semibold text-on-surface-variant uppercase tracking-widest mb-1">{tTools('diagnosisResult')}</p>
@@ -85,7 +106,7 @@ function DiagnosisResult({ result, onReset, streaming = false }: { result: Model
       </RevealOnScroll>
 
       <RevealOnScroll direction="up" delay={150}>
-        <div className="bg-surface-container-lowest rounded-lg p-6 ambient-shadow ghost-border">
+        <div className="bg-surface-container-lowest rounded-lg p-6 ambient-shadow ghost-border anim-result-reveal" style={{ animationDelay: '80ms' }}>
           <h3 className="font-bold text-on-surface mb-3 flex items-center gap-2">
           <span className="material-symbols-outlined text-secondary">medical_information</span>
           {tTools('aiRecommendation')}
@@ -95,7 +116,7 @@ function DiagnosisResult({ result, onReset, streaming = false }: { result: Model
       </RevealOnScroll>
 
       <RevealOnScroll direction="up" delay={300}>
-        <div className="flex gap-3">
+        <div className="flex gap-3 anim-result-reveal" style={{ animationDelay: '160ms' }}>
         <button
           onClick={onReset}
           className="flex-1 py-3 rounded-full border border-outline-variant text-on-surface font-semibold text-sm hover:bg-surface-container-low transition-colors"
@@ -264,14 +285,16 @@ function ChatbotPanel() {
             className="w-full py-2.5 rounded-lg signature-gradient text-white font-medium text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined text-sm">add_comment</span>
-            New Session
+            {tTools('newChat')}
           </button>
         </div>
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
-          {history.length === 0 ? (
+          {history.filter((s: any) => s.messages && s.messages.length > 0).length === 0 ? (
             <p className="text-xs text-on-surface-variant text-center mt-4">No past sessions</p>
           ) : (
-            history.map((s: any, i: number) => (
+            history
+              .filter((s: any) => s.messages && s.messages.length > 0)
+              .map((s: any, i: number) => (
               <button
                 key={i}
                 onClick={() => {
@@ -284,7 +307,7 @@ function ChatbotPanel() {
                 }}
                 className={`w-full text-start px-3 py-2.5 rounded-md text-sm transition-colors ${sessionId === s.id ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-surface-container text-on-surface'}`}
               >
-                <div className="truncate">{s.messages?.[0]?.messageText || 'Empty Session'}</div>
+                <div className="truncate">{s.messages?.[0]?.messageText}</div>
                 <div className="text-[10px] opacity-70 mt-0.5">{new Date(s.createdAt).toLocaleDateString()}</div>
               </button>
             ))
@@ -426,15 +449,20 @@ export default function AiToolPage() {
   if (config.type === 'chat') {
     return (
       <div className="space-y-6 animate-fade-in-up">
-        <div className="flex items-center gap-3">
-          <button onClick={() => router.push(`/${locale}/dashboard/ai-tools`)} className="w-9 h-9 rounded-full hover:bg-surface-container-low flex items-center justify-center text-on-surface-variant transition-colors">
-            <span className="material-symbols-outlined">arrow_back</span>
-          </button>
-          <div>
-            <h1 className="text-2xl font-bold text-primary">{config.title}</h1>
-            <p className="text-on-surface-variant text-sm">{tTools('chatbotSubtitle')}</p>
-          </div>
-        </div>
+      {/* Back + title */}
+      <DashboardHero
+        title={config.title}
+        subtitle={tTools('chatbotSubtitle')}
+        icon={config.icon}
+        backButton={
+          <Link
+            href={`/${locale}/dashboard/ai-tools`}
+            className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/20 text-white shadow-sm active:scale-95"
+          >
+            <span className="material-symbols-outlined rtl:rotate-180">arrow_back</span>
+          </Link>
+        }
+      />
         <ChatbotPanel />
       </div>
     );
@@ -532,30 +560,35 @@ export default function AiToolPage() {
 
   return (
     <div className="space-y-6 animate-fade-in-up">
-      {/* Top bar */}
-      <div className="flex items-center gap-3">
-        <button onClick={() => router.push(`/${locale}/dashboard/ai-tools`)} className="w-9 h-9 rounded-full hover:bg-surface-container-low flex items-center justify-center text-on-surface-variant transition-colors">
-          <span className="material-symbols-outlined">arrow_back</span>
-        </button>
-        <div className="flex items-center gap-3">
-          <span className="material-symbols-outlined text-primary text-2xl">{config.icon}</span>
-          <div>
-            <h1 className="text-2xl font-bold text-primary">{config.title}</h1>
-            <p className="text-on-surface-variant text-sm">{config.uploadLabel}</p>
+      {/* Back + title */}
+      <DashboardHero
+        title={config.title}
+        subtitle={config.uploadLabel}
+        icon={config.icon}
+        backButton={
+          <Link
+            href={`/${locale}/dashboard/ai-tools`}
+            className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/20 text-white shadow-sm active:scale-95"
+          >
+            <span className="material-symbols-outlined rtl:rotate-180">arrow_back</span>
+          </Link>
+        }
+        action={
+          <div className="hidden md:flex items-center gap-2">
+            {(['upload', 'processing', 'result'] as Step[]).map((s, i) => {
+              const isActive = step === s || i < ['upload', 'processing', 'result'].indexOf(step);
+              return (
+                <div key={s} className="flex items-center gap-2">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${isActive ? 'bg-white text-primary shadow-md' : 'bg-white/20 text-white border border-white/20'}`}>
+                    {i + 1}
+                  </div>
+                  {i < 2 && <div className={`w-8 h-px ${isActive ? 'bg-white' : 'bg-white/30'}`} />}
+                </div>
+              );
+            })}
           </div>
-        </div>
-        {/* Step indicator */}
-        <div className="ms-auto hidden md:flex items-center gap-2">
-          {(['upload', 'processing', 'result'] as Step[]).map((s, i) => (
-            <div key={s} className="flex items-center gap-2">
-              <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${step === s || (i < ['upload', 'processing', 'result'].indexOf(step)) ? 'signature-gradient text-white' : 'bg-surface-container-high text-on-surface-variant'}`}>
-                {i + 1}
-              </div>
-              {i < 2 && <div className={`w-8 h-0.5 rounded ${i < ['upload', 'processing', 'result'].indexOf(step) ? 'bg-primary' : 'bg-surface-container-high'}`} />}
-            </div>
-          ))}
-        </div>
-      </div>
+        }
+      />
 
       {/* Main content area */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -624,9 +657,9 @@ export default function AiToolPage() {
             </h3>
             <ul className="space-y-4">
               {[
-                { icon: 'center_focus_strong', title: 'Proper Positioning', desc: 'Ensure the full anatomical area is clearly visible in the frame.' },
-                { icon: 'contrast', title: 'Contrast & Resolution', desc: 'High-contrast, high-resolution images yield the most accurate results.' },
-                { icon: 'warning', title: 'Avoid Artefacts', desc: 'Motion blur or incorrect exposure may reduce diagnostic accuracy.' },
+                { icon: 'center_focus_strong', title: tTools('qualityPosTitle'), desc: tTools('qualityPosDesc') },
+                { icon: 'contrast', title: tTools('qualityContrastTitle'), desc: tTools('qualityContrastDesc') },
+                { icon: 'warning', title: tTools('qualityArtefactsTitle'), desc: tTools('qualityArtefactsDesc') },
               ].map(({ icon, title, desc }) => (
                 <li key={title} className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary-container/20 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -643,7 +676,7 @@ export default function AiToolPage() {
 
           {previewUrl && step !== 'upload' && (
             <div className="bg-surface-container-lowest rounded-lg p-4 ambient-shadow ghost-border">
-              <p className="text-xs font-semibold text-on-surface-variant mb-3">Uploaded Image</p>
+              <p className="text-xs font-semibold text-on-surface-variant mb-3">{tTools('uploadedImage')}</p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={previewUrl} alt="Uploaded scan preview" className="w-full rounded-lg object-contain max-h-48 bg-surface-container-high" />
             </div>

@@ -14,13 +14,16 @@ import { ErrorState } from '@/components/ui/ErrorState';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
 import { Typewriter } from '@/components/ui/Typewriter';
 import { AnimatedNumber } from '@/components/ui/AnimatedNumber';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 
-const STATUS_CONFIG: Record<string, { label: string; classes: string }> = {
-  Pending:   { label: 'Pending',   classes: 'bg-secondary-container/30 text-secondary' },
-  Confirmed: { label: 'Confirmed', classes: 'bg-primary/10 text-primary' },
-  Completed: { label: 'Completed', classes: 'bg-surface-container-high text-on-surface-variant' },
-  Cancelled: { label: 'Cancelled', classes: 'bg-error-container text-error' },
-};
+function getStatusConfig(t: any) {
+  return {
+    Pending:   { label: t('statusPending') || 'Pending',   classes: 'bg-secondary-container/30 text-secondary' },
+    Confirmed: { label: t('statusConfirmed') || 'Confirmed', classes: 'bg-primary/10 text-primary' },
+    Completed: { label: t('statusCompleted') || 'Completed', classes: 'bg-surface-container-high text-on-surface-variant' },
+    Cancelled: { label: t('statusCancelled') || 'Cancelled', classes: 'bg-error-container text-error' },
+  };
+}
 
 const QUICK_ACTIONS = [
   { icon: 'psychology',      labelKey: 'aiHub',        href: '/dashboard/ai-tools',       gradient: true },
@@ -100,26 +103,26 @@ export default function PatientDashboard() {
   return (
     <div className="space-y-10">
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="flex justify-between items-end">
-        <div>
+      <DashboardHero
+        icon="dashboard"
+        title={
           <Typewriter 
-            as="h1" 
+            as="span" 
             text={`${greeting()}, ${displayName}.`} 
             speed={25} 
-            className="text-3xl lg:text-4xl font-bold text-primary tracking-tight" 
           />
-          <p className={`text-on-surface-variant mt-2 text-lg ${mounted ? 'anim-fade-up-in' : 'anim-fade-up'}`} style={{ transitionDelay: '300ms' }}>
-            {t('subtitle')}
-          </p>
-        </div>
-        <Link
-          href={`/${locale}/dashboard/appointments`}
-          className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface-container-lowest ambient-shadow text-sm font-semibold text-on-surface hover:bg-surface-container-low transition-colors ghost-border"
-        >
-          <span className="material-symbols-outlined text-primary text-xl">add</span>
-          {t('bookAppointment')}
-        </Link>
-      </section>
+        }
+        subtitle={<span className={`${mounted ? 'anim-fade-up-in' : 'anim-fade-up'}`} style={{ transitionDelay: '300ms' }}>{t('subtitle')}</span>}
+        action={
+          <Link
+            href={`/${locale}/dashboard/appointments`}
+            className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full bg-white text-primary font-bold hover:bg-surface-container-lowest transition-colors shadow-lg active:scale-95"
+          >
+            <span className="material-symbols-outlined text-xl">add</span>
+            {t('bookAppointment')}
+          </Link>
+        }
+      />
 
       {/* ── Stats Row ─────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -144,7 +147,7 @@ export default function PatientDashboard() {
 
         {/* Medications */}
         <div 
-          className={`bg-surface-container-lowest dark:glass-panel rounded-lg p-6 ambient-shadow ghost-border dark:border-white/10 flex flex-col justify-between transition-all duration-700 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
+          className={`bg-surface-container-lowest dark:bg-[#0d1526] dark:border-[rgba(107,216,203,0.06)] rounded-lg p-6 ambient-shadow border border-surface-container-high flex flex-col justify-between transition-all duration-700 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
           style={{ transitionDelay: staggerDelay(1, 100) }}
         >
           <div className="flex justify-between items-start mb-4">
@@ -166,7 +169,7 @@ export default function PatientDashboard() {
 
         {/* Profile completion CTA */}
         <div 
-          className={`bg-surface-container-lowest dark:glass-panel rounded-lg p-6 ambient-shadow ghost-border dark:border-white/10 border-dashed border-outline-variant flex flex-col items-center justify-center gap-3 hover:bg-surface-container-low dark:hover:bg-white/5 transition-all duration-700 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
+          className={`bg-surface-container-lowest dark:bg-[#0d1526] dark:border-[rgba(107,216,203,0.06)] rounded-lg p-6 ambient-shadow border border-surface-container-high border-dashed border-outline-variant flex flex-col items-center justify-center gap-3 hover:bg-surface-container-low dark:hover:bg-[#111d33] transition-all duration-700 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
           style={{ transitionDelay: staggerDelay(2, 100) }}
         >
           <span className="material-symbols-outlined text-primary text-2xl">person_check</span>
@@ -188,7 +191,7 @@ export default function PatientDashboard() {
               className={`rounded-lg p-5 flex flex-col items-center gap-3 transition-all duration-300 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale} hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_0_30px_rgba(0,242,254,0.15)] active:scale-95 ${
                 gradient
                   ? 'signature-gradient text-white'
-                  : 'bg-surface-container-lowest dark:glass-panel border border-transparent dark:border-white/10 hover:border-primary/20 text-on-surface hover:bg-surface-container-low'
+                  : 'bg-surface-container-lowest dark:bg-[#0d1526] dark:border-[rgba(107,216,203,0.06)] border border-transparent hover:border-primary/20 text-on-surface hover:bg-surface-container-low'
               }`}
               style={{ transitionDelay: staggerDelay(idx, 120) }}
             >
@@ -204,7 +207,7 @@ export default function PatientDashboard() {
       </section>
 
       {/* ── Upcoming Appointments ──────────────────────────────────────────── */}
-      <section className="bg-surface-container-lowest dark:glass-panel rounded-lg p-6 ambient-shadow ghost-border dark:border-white/10">
+      <section className="bg-surface-container-lowest dark:bg-[#0d1526] dark:border dark:border-[rgba(107,216,203,0.06)] rounded-lg p-6 ambient-shadow border border-surface-container-high">
         <div className="flex justify-between items-center mb-6 border-b border-surface-container-high pb-4">
           <h2 className="text-lg font-bold text-on-surface">{t('upcomingAppointments')}</h2>
           <Link
@@ -231,7 +234,8 @@ export default function PatientDashboard() {
         ) : (
           <div className="space-y-2">
             {upcoming.map((appt, idx) => {
-              const cfg = STATUS_CONFIG[appt.status] ?? STATUS_CONFIG.Pending;
+              const STATUS_CONFIG = getStatusConfig(t);
+              const cfg = STATUS_CONFIG[appt.status as keyof typeof STATUS_CONFIG] ?? STATUS_CONFIG.Pending;
               const apptDate = new Date(appt.date);
               return (
                 <div
@@ -264,29 +268,31 @@ export default function PatientDashboard() {
       {!profileLoading && !profileError && profile && (
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { icon: 'medical_information', label: t('chronicDiseases'), items: profile.chronicDiseases },
-            { icon: 'warning',             label: t('allergies'),       items: profile.allergies },
-            { icon: 'medication',          label: t('medications'),     items: profile.currentMedication },
-          ].map(({ icon, label, items }, idx) => (
+            { icon: 'coronavirus', label: t('chronicDiseases'), items: profile.chronicDiseases, bg: 'bg-purple-50/50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30', textClass: 'text-secondary', chipClass: 'bg-secondary/10 text-secondary' },
+            { icon: 'masks',       label: t('allergies'),       items: profile.allergies,       bg: 'bg-rose-50/50 dark:bg-rose-900/10 border-rose-100 dark:border-rose-900/30',         textClass: 'text-error',     chipClass: 'bg-error-container text-error' },
+            { icon: 'medication',  label: t('medications'),     items: profile.currentMedication, bg: 'bg-teal-50/50 dark:bg-teal-900/10 border-teal-100 dark:border-teal-900/30',       textClass: 'text-primary',   chipClass: 'bg-primary/10 text-primary' },
+          ].map(({ icon, label, items, bg, textClass, chipClass }, idx) => (
             <div 
               key={label} 
-              className={`bg-surface-container-lowest dark:glass-panel rounded-lg p-5 ambient-shadow ghost-border dark:border-white/10 transition-all duration-700 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
+              className={`${bg} border rounded-xl p-5 ambient-shadow transition-all duration-500 hover:-translate-y-1 hover:shadow-md ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
               style={{ transitionDelay: staggerDelay(idx, 100) }}
             >
               <div className="flex items-center gap-2 mb-4">
-                <span className="material-symbols-outlined text-primary">{icon}</span>
+                <span className={`material-symbols-outlined ${textClass}`}>{icon}</span>
                 <h3 className="font-bold text-on-surface text-sm">{label}</h3>
               </div>
               {items.length === 0 ? (
-                <p className="text-xs text-on-surface-variant">{t('noneRecorded')}</p>
+                <p className="text-xs text-on-surface-variant italic flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">block</span> {t('noneRecorded')}
+                </p>
               ) : (
-                <ul className="space-y-1.5">
+                <div className="flex flex-wrap gap-2">
                   {items.map((item) => (
-                    <li key={item.id} className="text-xs text-on-surface bg-surface-container-low rounded px-3 py-1.5">
+                    <span key={item.id} className={`${chipClass} text-xs px-3 py-1.5 rounded-full font-medium`}>
                       {item.name}
-                    </li>
+                    </span>
                   ))}
-                </ul>
+                </div>
               )}
             </div>
           ))}

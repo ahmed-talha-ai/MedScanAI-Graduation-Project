@@ -9,6 +9,7 @@ import type { DoctorExtraResponse, DoctorReviewResponse } from '@/types/api';
 import { DoctorProfileModal } from '@/components/doctor/DoctorProfileModal';
 import type { AugmentedDoctor } from '@/components/doctor/DoctorProfileModal';
 import { DoctorEditModal } from '@/components/admin/DoctorEditModal';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 import { useAuthStore } from '@/stores/authStore';
 
 export default function OurDoctorsPage() {
@@ -128,12 +129,11 @@ export default function OurDoctorsPage() {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Header */}
-      <section className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-primary tracking-tight">{t('title')}</h1>
-          <p className="text-on-surface-variant mt-1">{t('subtitle')}</p>
-        </div>
-      </section>
+      <DashboardHero
+        icon="groups"
+        title={t('title')}
+        subtitle={t('subtitle')}
+      />
 
       {/* Filters */}
       <section className="bg-surface-container-lowest p-4 rounded-xl ambient-shadow ghost-border flex flex-wrap gap-4">

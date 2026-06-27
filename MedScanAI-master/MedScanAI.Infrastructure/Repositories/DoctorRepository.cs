@@ -1,4 +1,4 @@
-﻿using MedScanAI.Domain.Entities;
+using MedScanAI.Domain.Entities;
 using MedScanAI.Infrastructure.Abstracts;
 using MedScanAI.Infrastructure.Context;
 using MedScanAI.Infrastructure.RepositoryBase;
@@ -85,14 +85,14 @@ namespace MedScanAI.Infrastructure.Repositories
                     .Include(x => x.Patient.Allergies)
                     .Include(x => x.Patient.ChronicDiseases)
                     .Include(x => x.Patient.CurrentMedications)
-                    .Where(a => a.DoctorId == doctorId && a.Date.Date == today && a.Status != "Completed" && a.Status != "Cancelled" && a.Status == "Confirmed")
+                    .Where(a => a.DoctorId == doctorId && a.Date.Date == today && a.Status != "Completed" && a.Status != "Cancelled")
                     .ToListAsync();
 
                 var patientResponse = appointments.Select(a => new PatientResponse
                 {
                     AppointmentId = a.Id,
                     PatientId = a.PatientId,
-                    AppointmentDate = a.Date.ToString("hh:mm tt", culture),
+                    AppointmentDate = a.Date.ToString("o"),
                     Reason = a.Reason,
                     PatientName = a.PatientName,
                     ChronicDiseases = a.Patient?.ChronicDiseases?.Select(x => x.Name).ToList() ?? new List<string>(),

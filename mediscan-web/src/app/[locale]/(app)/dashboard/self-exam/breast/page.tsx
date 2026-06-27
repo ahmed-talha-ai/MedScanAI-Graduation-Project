@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ExamWizard } from '@/components/exam/ExamWizard';
 import { Typewriter } from '@/components/ui/Typewriter';
@@ -10,6 +11,8 @@ import { ANIM_CLASSES } from '@/lib/animations';
 
 export default function BreastSelfExamPage() {
   const t = useTranslations();
+  const params = useParams();
+  const locale = (params?.locale as string) ?? 'ar';
   const [view, setView] = useState<'wizard' | 'concern' | 'complete'>('wizard');
 
   const handleComplete = () => {
@@ -44,7 +47,7 @@ export default function BreastSelfExamPage() {
           
           <div className="flex flex-col gap-4 max-w-md mx-auto">
             <Link
-              href="/dashboard/ai-tools/breast-cancer"
+              href={`/${locale}/dashboard/ai-tools/breast-cancer`}
               className="w-full py-4 bg-amber-900 dark:bg-amber-100 text-amber-50 dark:text-amber-900 rounded-xl font-bold hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-xl">psychology</span>
@@ -52,7 +55,7 @@ export default function BreastSelfExamPage() {
             </Link>
             
             <Link
-              href="/dashboard/appointments"
+              href={`/${locale}/dashboard/appointments`}
               className="w-full py-4 bg-white/50 dark:bg-black/30 backdrop-blur-sm border border-amber-200 dark:border-amber-900/50 rounded-xl font-bold hover:bg-white/80 dark:hover:bg-black/50 transition-colors flex items-center justify-center gap-2 text-amber-900 dark:text-amber-100"
             >
               <span className="material-symbols-outlined text-xl">calendar_month</span>
@@ -82,21 +85,21 @@ export default function BreastSelfExamPage() {
             </div>
           </div>
           
-          <h2 className="text-3xl font-bold text-on-surface mb-4">{t('landing.breastCompleteTitle')}</h2>
-          <p className="text-lg text-on-surface-variant mb-8 max-w-md mx-auto leading-relaxed" dir={t('landing.breastCompleteMsg').includes('طالما') ? 'rtl' : 'ltr'}>
-            {t('landing.breastCompleteMsg')}
+          <h2 className="text-3xl font-bold text-on-surface mb-4">{t('exam.landing.breastCompleteTitle')}</h2>
+          <p className="text-lg text-on-surface-variant mb-8 max-w-md mx-auto leading-relaxed">
+            {t('exam.landing.breastCompleteMsg')}
           </p>
           
           <div className="flex flex-col gap-4 max-w-md mx-auto">
             <Link
-              href="/ai-tools/breast-scan"
+              href={`/${locale}/dashboard/ai-tools/breast-cancer`}
               className="w-full py-4 bg-primary text-on-primary rounded-xl font-bold hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
             >
               <span className="material-symbols-outlined">auto_awesome</span>
-              {t('landing.breastCta')}
+              {t('exam.landing.breastCta')}
             </Link>
             <Link
-              href="/dashboard"
+              href={`/${locale}/dashboard`}
               className="w-full py-4 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-xl font-bold transition-all flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined">home</span>
@@ -109,7 +112,7 @@ export default function BreastSelfExamPage() {
   }
 
   return (
-    <div className={`${ANIM_CLASSES.visible} max-w-4xl mx-auto py-8 px-4`}>
+    <div className={`${ANIM_CLASSES.visible} w-full py-8 px-4`}>
       <ExamWizard
         steps={BREAST_SELF_STEPS}
         titleKey="exam.breastSelf.title"

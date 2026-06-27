@@ -19,26 +19,30 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { key: 'dashboard', icon: 'dashboard', href: '/dashboard', roles: ['Patient'] },
-  { key: 'appointments', icon: 'calendar_month', href: '/dashboard/appointments', roles: ['Patient'] },
-  { key: 'reports', icon: 'description', href: '/dashboard/reports', roles: ['Patient'] },
-  { key: 'ourDoctors', icon: 'groups', href: '/dashboard/our-doctors', roles: ['Patient'] },
-  { key: 'aiTools', icon: 'psychology', href: '/dashboard/ai-tools', roles: ['Patient'] },
-  { key: 'examinations', icon: 'medical_information', href: '/examinations', roles: ['Patient', 'Doctor'] },
-  { key: 'profile',         icon: 'person',        href: '/dashboard/profile',              roles: ['Patient'] },
-  { key: 'forbiddenMeds',   icon: 'medication',    href: '/dashboard/forbidden-medicines',  roles: ['Patient'] },
-  { key: 'childrenHealth',  icon: 'child_care',    href: '/dashboard/children',             roles: ['Patient'] },
-  // Doctor nav
-  { key: 'dashboard',    icon: 'dashboard',       href: '/doctor',                roles: ['Doctor'] },
-  { key: 'appointments', icon: 'calendar_month',  href: '/doctor/appointments',   roles: ['Doctor'] },
-  { key: 'aiTools',      icon: 'psychology',      href: '/dashboard/ai-tools',    roles: ['Doctor'] },
-  { key: 'profile',      icon: 'person',          href: '/doctor/profile',        roles: ['Doctor'] },
-  // Admin nav
+  // ── Patient nav (logical UX order) ──────────────────────────────────────────
+  { key: 'dashboard',      icon: 'dashboard',           href: '/dashboard',                   roles: ['Patient'] },
+  { key: 'profile',        icon: 'person',              href: '/dashboard/profile',            roles: ['Patient'] },
+  { key: 'appointments',   icon: 'calendar_month',      href: '/dashboard/appointments',       roles: ['Patient'] },
+  { key: 'reports',        icon: 'description',         href: '/dashboard/reports',            roles: ['Patient'] },
+  { key: 'aiTools',        icon: 'psychology',          href: '/dashboard/ai-tools',           roles: ['Patient'] },
+  { key: 'examinations',   icon: 'medical_information', href: '/examinations',                 roles: ['Patient'] },
+  { key: 'childrenHealth', icon: 'child_care',          href: '/dashboard/children',           roles: ['Patient'] },
+  { key: 'forbiddenMeds',  icon: 'medication',          href: '/dashboard/forbidden-medicines', roles: ['Patient'] },
+  { key: 'ourDoctors',     icon: 'groups',              href: '/dashboard/our-doctors',        roles: ['Patient'] },
+
+  // ── Doctor nav (logical UX order) ───────────────────────────────────────────
+  { key: 'dashboard',            icon: 'dashboard',           href: '/doctor',                roles: ['Doctor'] },
+  { key: 'profile',              icon: 'person',              href: '/doctor/profile',        roles: ['Doctor'] },
+  { key: 'doctorAppointments',   icon: 'calendar_month',      href: '/doctor/appointments',   roles: ['Doctor'] },
+  { key: 'examinations',         icon: 'medical_information', href: '/examinations',          roles: ['Doctor'] },
+  { key: 'aiTools',              icon: 'psychology',          href: '/dashboard/ai-tools',    roles: ['Doctor'] },
+
+  // ── Admin nav (logical UX order) ────────────────────────────────────────────
   { key: 'admin',           icon: 'admin_panel_settings', href: '/admin',                  roles: ['Admin'] },
-  { key: 'doctors',         icon: 'medical_services',      href: '/admin/doctors',           roles: ['Admin'] },
-  { key: 'addDoctor',       icon: 'person_add',            href: '/admin/add-doctor',        roles: ['Admin'] },
-  { key: 'addAdmin',        icon: 'manage_accounts',       href: '/admin/add-admin',         roles: ['Admin'] },
-  { key: 'bookAppointment', icon: 'calendar_add_on',       href: '/admin/book-appointment',  roles: ['Admin'] },
+  { key: 'doctors',         icon: 'medical_services',     href: '/admin/doctors',           roles: ['Admin'] },
+  { key: 'addDoctor',       icon: 'person_add',           href: '/admin/add-doctor',        roles: ['Admin'] },
+  { key: 'addAdmin',        icon: 'manage_accounts',      href: '/admin/add-admin',         roles: ['Admin'] },
+  { key: 'bookAppointment', icon: 'calendar_add_on',      href: '/admin/book-appointment',  roles: ['Admin'] },
 ];
 
 export function SideNavBar() {
@@ -88,7 +92,7 @@ export function SideNavBar() {
       {/* Brand & Toggle — flex-shrink-0 */}
       <div className={`flex-shrink-0 py-5 flex items-center ${isOpen ? 'px-6 gap-3' : 'px-0 justify-center flex-col gap-4'}`}>
         <div className={`flex items-center gap-3 ${!isOpen && 'w-full justify-center'}`}>
-          {isOpen && <Logo size={40} className="rounded-lg" variant={mounted && isDark ? 'white' : 'default'} />}
+          {isOpen && <Logo size={40} className="rounded-lg" />}
           <button 
             onClick={toggleSidebar} 
             className="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center transition-colors text-on-surface-variant focus:outline-none"
@@ -108,18 +112,21 @@ export function SideNavBar() {
       </div>
 
       {/* New Consultation CTA — flex-shrink-0 */}
-      <div className={`flex-shrink-0 mb-4 ${isOpen ? 'px-6' : 'px-3'}`}>
-        <button 
-          className={`w-full signature-gradient text-white rounded-full font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all ambient-shadow active:scale-[0.98] ${isOpen ? 'py-3 px-5' : 'py-3 px-0 h-12 rounded-2xl'}`}
-          title={!isOpen ? t('newConsultation') : undefined}
-        >
-          <span className="material-symbols-outlined text-xl">add</span>
-          {isOpen && <span className="whitespace-nowrap overflow-hidden">{t('newConsultation')}</span>}
-        </button>
-      </div>
+      {role === 'Patient' && (
+        <div className={`flex-shrink-0 mb-4 ${isOpen ? 'px-6' : 'px-3'}`}>
+          <Link 
+            href={`/${locale}/dashboard/appointments`}
+            className={`w-full signature-gradient text-white rounded-full font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all ambient-shadow active:scale-[0.98] ${isOpen ? 'py-3 px-5' : 'py-3 px-0 h-12 rounded-2xl'}`}
+            title={!isOpen ? t('newConsultation') : undefined}
+          >
+            <span className="material-symbols-outlined text-xl">add</span>
+            {isOpen && <span className="whitespace-nowrap overflow-hidden">{t('newConsultation')}</span>}
+          </Link>
+        </div>
+      )}
 
-      {/* Nav items — flex-1 */}
-      <div className={`flex-1 flex flex-col justify-evenly overflow-hidden ${isOpen ? 'px-3' : 'px-2'}`}>
+      {/* Nav items — flex-1, items auto-sized */}
+      <div className={`flex-1 flex flex-col justify-evenly min-h-0 ${isOpen ? 'px-3' : 'px-2'}`}>
         {visibleItems.map((item) => {
           const href = `/${locale}${item.href}`;
           const isActive = pathname === href || (item.href !== '/dashboard' && item.href !== '/doctor' && item.href !== '/admin' && pathname.startsWith(href));
@@ -131,7 +138,7 @@ export function SideNavBar() {
               key={`${item.href}-${item.key}`}
               href={href}
               title={!isOpen ? t(item.key as Parameters<typeof t>[0]) : undefined}
-              className={`relative flex items-center gap-3 py-3 rounded-full transition-all duration-200 group ${isOpen ? 'px-4' : 'px-0 justify-center w-full'} ${
+              className={`relative flex items-center gap-3 rounded-full transition-all duration-200 group ${isOpen ? 'px-4 py-2.5' : 'px-0 py-2.5 justify-center w-full'} ${
                 active
                   ? 'bg-primary-container/20 text-primary font-bold'
                   : 'text-on-surface-variant hover:text-primary hover:bg-surface-container-low'
@@ -147,7 +154,7 @@ export function SideNavBar() {
                 {item.icon}
               </span>
               {isOpen && (
-                <span className="text-base font-medium whitespace-nowrap overflow-hidden transition-all">{t(item.key as Parameters<typeof t>[0])}</span>
+                <span className="text-sm font-medium whitespace-nowrap overflow-hidden transition-all">{t(item.key as Parameters<typeof t>[0])}</span>
               )}
             </Link>
           );

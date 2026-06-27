@@ -57,7 +57,7 @@ export function FileUploadZone({
       onDrop={handleDrop}
       className={`relative w-full min-h-[340px] bg-surface-container-lowest rounded-lg border-2 border-dashed flex flex-col items-center justify-center p-8 text-center transition-all group cursor-pointer ${
         dragOver
-          ? 'border-primary bg-primary/5'
+          ? 'border-primary bg-primary/5 anim-upload-pulse'
           : 'border-outline-variant/40 hover:border-primary/40 hover:bg-surface-container-low'
       }`}
       onClick={() => inputRef.current?.click()}
@@ -73,7 +73,7 @@ export function FileUploadZone({
       {selectedFile ? (
         /* File selected state */
         <div className="flex flex-col items-center">
-          <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+          <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 anim-success-ripple">
             <span className="material-symbols-outlined text-4xl text-primary">check_circle</span>
           </div>
           <p className="font-bold text-on-surface text-lg mb-1">{selectedFile.name}</p>

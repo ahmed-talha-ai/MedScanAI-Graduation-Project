@@ -66,19 +66,36 @@ const config: Config = {
         sm: '0.5rem',
       },
       fontFamily: {
-        headline: ['var(--font-plus-jakarta)', 'var(--font-ibm-arabic)', 'sans-serif'],
-        display: ['var(--font-plus-jakarta)', 'var(--font-ibm-arabic)', 'sans-serif'],
-        body: ['var(--font-plus-jakarta)', 'var(--font-ibm-arabic)', 'sans-serif'],
-        label: ['var(--font-plus-jakarta)', 'var(--font-ibm-arabic)', 'sans-serif'],
+        sans: ['var(--font-cairo)', 'sans-serif'],
       },
       boxShadow: {
         ambient: '0 4px 24px rgba(0, 104, 95, 0.07)',
         'ambient-md': '0 8px 32px rgba(0, 104, 95, 0.10)',
         'ambient-sm': '0 2px 12px rgba(0, 0, 0, 0.04)',
       },
-      backgroundImage: {
+        backgroundImage: {
         'signature-gradient': 'linear-gradient(135deg, #00685f 0%, #006780 100%)',
       },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-15px)' },
+        },
+        'float-slow': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        }
+      },
+      animation: {
+        float: 'float 6s ease-in-out infinite',
+        'float-slow': 'float-slow 8s ease-in-out infinite',
+        'float-fast': 'float 4s ease-in-out infinite',
+        blink: 'blink 1s step-end infinite',
+      }
     },
   },
   plugins: [],

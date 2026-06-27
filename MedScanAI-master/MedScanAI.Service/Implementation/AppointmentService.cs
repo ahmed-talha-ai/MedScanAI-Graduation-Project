@@ -204,8 +204,8 @@ namespace MedScanAI.Service.Implementation
                 // Fire WhatsApp Notification
                 if (patient is not null && patient.PhoneNumber is not null && patient.IsAppointmentNotificationEnabled)
                 {
-                    var dateStr = appointment.Date.ToShortDateString();
-                    var timeStr = appointment.Date.ToShortTimeString();
+                    var dateStr = appointment.Date.ToString("yyyy/MM/dd", System.Globalization.CultureInfo.InvariantCulture);
+                    var timeStr = appointment.Date.ToString("hh:mm tt", new System.Globalization.CultureInfo("ar-EG"));
                     _ = _whatsAppService.SendAppointmentReminderAsync(patient.PhoneNumber, patient.FullName, dateStr, timeStr, patient.PreferredLanguage);
                 }
 
@@ -252,8 +252,8 @@ namespace MedScanAI.Service.Implementation
                 // Fire WhatsApp Notification
                 if (patient is not null && patient.PhoneNumber is not null && patient.IsAppointmentNotificationEnabled)
                 {
-                    var dateStr = appointment.Date.ToShortDateString();
-                    var timeStr = appointment.Date.ToShortTimeString();
+                    var dateStr = appointment.Date.ToString("yyyy/MM/dd", System.Globalization.CultureInfo.InvariantCulture);
+                    var timeStr = appointment.Date.ToString("hh:mm tt", new System.Globalization.CultureInfo("ar-EG"));
                     _ = _whatsAppService.SendAppointmentReminderAsync(patient.PhoneNumber, patient.FullName, dateStr, timeStr, patient.PreferredLanguage);
                 }
 

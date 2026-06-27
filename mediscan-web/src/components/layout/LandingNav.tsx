@@ -55,9 +55,8 @@ export function LandingNav() {
         {/* Logo */}
         <Link href={`/${locale}`} className="flex items-center gap-2.5 flex-shrink-0">
           <Logo
-            size={36}
-            className="rounded-lg"
-            variant={!mounted ? 'default' : (isDark ? 'white' : 'default')}
+            size={40}
+            className="rounded-xl shadow-sm"
           />
           <span className="text-lg font-bold text-on-surface tracking-tight">
             MediScan <span className="text-primary">AI</span>

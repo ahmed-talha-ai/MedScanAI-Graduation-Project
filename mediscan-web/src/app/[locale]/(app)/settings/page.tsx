@@ -9,6 +9,7 @@ import { AnimatedProgressBar } from '@/components/ui/AnimatedProgressBar';
 import { ANIM_CLASSES } from '@/lib/animations';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { patientPreferencesService, PatientPreferences } from '@/services/patientPreferencesService';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 
 type TabKey = 'general' | 'security' | 'integrations' | 'notifications';
 
@@ -416,10 +417,11 @@ export default function SettingsPage() {
   return (
     <>
       <div className="w-full max-w-5xl mx-auto space-y-6 pb-20">
-        <div className={`mb-8 ${mounted ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`}>
-          <h1 className="text-3xl font-bold text-on-surface mb-2">{t('title')}</h1>
-          <p className="text-on-surface-variant">{t('subtitle')}</p>
-        </div>
+        <DashboardHero 
+          title={t('title')} 
+          subtitle={t('subtitle')} 
+          icon="settings" 
+        />
 
         {/* Tab bar */}
         <div className={`flex gap-1 bg-surface-container-high p-1 rounded-full w-fit overflow-x-auto ${mounted ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`} style={{ transitionDelay: '100ms' }}>

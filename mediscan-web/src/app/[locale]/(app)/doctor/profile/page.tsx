@@ -8,6 +8,7 @@ import { doctorService } from '@/services/doctorService';
 import { doctorExtraService } from '@/services/doctorExtraService';
 import type { DoctorDashboardResponse, DoctorExtraResponse } from '@/types/api';
 import { useTranslations } from 'next-intl';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 
 function StatPill({ icon, label, value }: { icon: string; label: string; value: string | number }) {
   return (
@@ -74,10 +75,11 @@ export default function DoctorProfilePage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up">
       {/* Page heading */}
-      <div>
-        <h1 className="text-3xl font-bold text-primary">{t('profileTitle')}</h1>
-        <p className="text-on-surface-variant mt-1">{t('profileSubtitle')}</p>
-      </div>
+      <DashboardHero 
+        title={t('profileTitle')} 
+        subtitle={t('profileSubtitle')} 
+        icon="person" 
+      />
 
       {/* Error */}
       {error && (

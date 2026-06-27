@@ -20,7 +20,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const msClass = mounted && !sidebarOpen ? 'md:ms-20' : 'md:ms-72';
 
   return (
-    <div className="flex min-h-screen bg-surface-container-low">
+    <div className="flex min-h-screen bg-surface-container-low overflow-x-hidden">
       <Preloader />
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:top-4 focus:start-4 focus:bg-primary focus:text-on-primary focus:px-4 focus:py-2 focus:rounded-full focus:font-semibold">
         Skip to content

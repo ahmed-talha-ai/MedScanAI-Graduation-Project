@@ -6,6 +6,7 @@ import { adminService } from '@/services/adminService';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const SPECIALIZATIONS = [
@@ -183,8 +184,11 @@ export default function AddDoctorPage() {
           <span className="material-symbols-outlined text-base">arrow_back</span>
           {t('backToDoctors')}
         </button>
-        <h1 className="text-3xl font-bold text-primary">{t('title')}</h1>
-        <p className="text-on-surface-variant mt-1">{t('subtitle')}</p>
+        <DashboardHero 
+          title={t('title')} 
+          subtitle={t('subtitle')} 
+          icon="person_add" 
+        />
       </div>
 
       {/* Form error */}

@@ -9,7 +9,6 @@ import { doctorService } from '@/services/doctorService';
 import { reportService } from '@/services/reportService';
 import type { DoctorPatientEntry, PatientWarning } from '@/types/api';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
-import { ReportDrawer } from '@/components/doctor/ReportDrawer';
 import { SkeletonRow } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
@@ -46,7 +45,6 @@ export default function DoctorPatientDetail() {
   const [patient, setPatient] = useState<DoctorPatientEntry | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isReportOpen, setIsReportOpen] = useState(false);
   const [completing, setCompleting] = useState(false);
   
   // Warnings
@@ -237,29 +235,40 @@ export default function DoctorPatientDetail() {
 
   return (
     <>
-      <div className="space-y-6">
-        {/* Section A — Patient Profile Card */}
-        <div className={`flex items-center gap-4 transition-all duration-500 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}>
-          <div className={`w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0 ${avatarColor}`}>
+      {/* Unified Header */}
+      <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-primary-container/20 p-6 rounded-2xl ambient-shadow transition-all duration-500 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => router.back()}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-surface hover:bg-primary/10 text-on-surface-variant hover:text-primary transition-colors shadow-sm"
+            title={t('goBack')}
+          >
+            <span className="material-symbols-outlined rtl:rotate-180">arrow_back</span>
+          </button>
+          
+          <div className={`w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0 ${avatarColor}`}>
             {getInitials(patient.patientName)}
           </div>
+          
           <div>
-            <h1 className="text-3xl font-bold text-on-surface">{patient.patientName}</h1>
-            <div className="flex flex-wrap items-center gap-3 mt-2">
-              <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
-                {t('patientId')}: {patient.patientId}
+            <h1 className="text-2xl font-bold text-on-surface">{patient.patientName}</h1>
+            <div className="flex flex-wrap items-center gap-3 mt-1">
+              <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-md">
+                #{patient.patientId.substring(0, 8)}
               </span>
-              <span className="text-sm text-on-surface-variant flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm">event</span>
+              <span className="text-xs text-on-surface-variant flex items-center gap-1">
+                <span className="material-symbols-outlined text-xs">event</span>
                 {t('lastVisit')}: {formatDate(patient.appointmentDate)}
               </span>
             </div>
           </div>
         </div>
+      </div>
 
+      <div className="space-y-6 mt-6">
         {/* Section B — Visit Snapshot Card */}
         <div 
-          className={`bg-surface-container-low rounded-xl p-6 ambient-shadow transition-all duration-500 ${mounted ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`}
+          className={`bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-xl p-6 ambient-shadow transition-all duration-500 ${mounted ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`}
           style={{ transitionDelay: staggerDelay(0, 80, 150) }}
         >
           <h2 className="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
@@ -277,7 +286,7 @@ export default function DoctorPatientDetail() {
             </div>
             <span className="bg-primary/10 text-primary px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1">
               <span className="material-symbols-outlined text-sm">schedule</span>
-              Scheduled
+              {t('scheduled')}
             </span>
           </div>
         </div>
@@ -342,8 +351,8 @@ export default function DoctorPatientDetail() {
           </div>
 
           <div 
-            className={`bg-surface-container-low rounded-xl p-5 ambient-shadow transition-all duration-500 ${mounted ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`}
-            style={{ transitionDelay: '300ms' }}
+            className={`bg-purple-50/50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-900/30 rounded-xl p-5 ambient-shadow transition-all duration-500 ${mounted ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`}
+            style={{ transitionDelay: staggerDelay(2, 80, 250) }}
           >
             <h3 className="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
               <span className="material-symbols-outlined text-error">masks</span>
@@ -363,7 +372,7 @@ export default function DoctorPatientDetail() {
           </div>
 
           <div 
-            className={`bg-surface-container-low rounded-xl p-5 ambient-shadow transition-all duration-500 ${mounted ? ANIM_CLASSES.rightIn : ANIM_CLASSES.right}`}
+            className={`bg-teal-50/50 dark:bg-teal-900/10 border border-teal-100 dark:border-teal-900/30 rounded-xl p-5 ambient-shadow transition-all duration-500 ${mounted ? ANIM_CLASSES.rightIn : ANIM_CLASSES.right}`}
             style={{ transitionDelay: '300ms' }}
           >
             <h3 className="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
@@ -459,17 +468,19 @@ export default function DoctorPatientDetail() {
           )}
         </div>
 
-        {/* Section F — AI Clinical Report */}
-        <div id="report-section" className={`bg-surface-container-lowest rounded-xl ambient-shadow ghost-border overflow-hidden transition-all duration-500 ${mounted ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`} style={{ transitionDelay: '500ms' }}>
-          <div className="px-6 py-5 border-b border-surface-container-high flex items-center justify-between gap-4 bg-primary-container/10 flex-wrap">
+        {/* Section F — AI Clinical Report Card */}
+        <div id="report-section" className={`bg-primary-container/10 border border-primary/20 rounded-xl ambient-shadow overflow-hidden transition-all duration-500 ${mounted ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`} style={{ transitionDelay: '500ms' }}>
+          <div className="px-6 py-5 border-b border-primary/10 flex items-center justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full signature-gradient flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-full signature-gradient flex items-center justify-center flex-shrink-0 shadow-sm">
                 <span className="material-symbols-outlined text-white text-lg">description</span>
               </div>
               <div>
                 <p className="font-bold text-on-surface">AI Clinical Report</p>
-                {report?.generated_at && (
+                {report?.generated_at ? (
                   <p className="text-xs text-on-surface-variant">Last updated: {formatDate(report.generated_at)}</p>
+                ) : (
+                  <p className="text-xs text-on-surface-variant">Not generated yet</p>
                 )}
               </div>
             </div>
@@ -478,33 +489,33 @@ export default function DoctorPatientDetail() {
               <button
                 onClick={handleGenerateReport}
                 disabled={streaming || reportLoading}
-                className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 text-primary font-semibold text-sm hover:bg-primary/10 transition-all disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 text-primary font-semibold text-sm hover:bg-primary/10 transition-all disabled:opacity-50 bg-surface/50"
               >
                 {streaming || (reportLoading && !reportText) ? (
                   <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                 ) : (
                   <span className="material-symbols-outlined text-sm">refresh</span>
                 )}
-                {reportText ? 'Update Report' : 'Generate Report'}
+                {reportText ? t('updateReport') : t('generateReport')}
               </button>
 
               {reportText && !streaming && (
                 <button
                   onClick={handleDownloadPdf}
                   disabled={downloading}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full signature-gradient text-white font-semibold text-sm hover:opacity-90 transition-all disabled:opacity-60 ambient-shadow"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full signature-gradient text-white font-semibold text-sm hover:opacity-90 transition-all ambient-shadow"
                 >
                   {downloading ? (
                     <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   ) : (
                     <span className="material-symbols-outlined text-sm">picture_as_pdf</span>
                   )}
-                  Download PDF
+                  {t('downloadPdf')}
                 </button>
               )}
             </div>
           </div>
-
+          
           <div className="p-6 md:p-8" dir="ltr">
             {reportLoading && !reportText ? (
               <div className="space-y-4">
@@ -518,22 +529,15 @@ export default function DoctorPatientDetail() {
               </div>
             ) : (
               <div className="text-center py-10">
-                <span className="material-symbols-outlined text-5xl text-on-surface-variant/50 mb-3">description</span>
+                <span className="material-symbols-outlined text-5xl text-on-surface-variant/30 mb-3">description</span>
                 <p className="text-on-surface-variant">
-                  {reportError ? reportError : 'No report generated yet. Click "Generate Report" to run the AI analysis.'}
+                  {reportError ? reportError : t('noReportYet')}
                 </p>
               </div>
             )}
           </div>
         </div>
       </div>
-
-      {/* Drawer */}
-      <ReportDrawer 
-        patientId={isReportOpen ? patient.patientId : null}
-        patientName={patient.patientName}
-        onClose={() => setIsReportOpen(false)}
-      />
     </>
   );
 }

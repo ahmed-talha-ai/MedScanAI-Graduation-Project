@@ -20,8 +20,8 @@ namespace MedScanAI.Service.Implementation
             
             _phoneNumberId = config["WhatsAppSettings:PhoneNumberId"]
                 ?? throw new InvalidOperationException("WhatsAppSettings:PhoneNumberId is not configured.");
-            _accessToken = config["WhatsAppSettings:AccessToken"]
-                ?? throw new InvalidOperationException("WhatsAppSettings:AccessToken is not configured.");
+            _accessToken = (config["WhatsAppSettings:AccessToken"]
+                ?? throw new InvalidOperationException("WhatsAppSettings:AccessToken is not configured.")).Trim();
                 
             _httpClient.BaseAddress = new Uri(config["WhatsAppSettings:ApiUrl"] ?? "https://graph.facebook.com/v25.0/");
         }
@@ -40,8 +40,8 @@ namespace MedScanAI.Service.Implementation
                     type = "template",
                     template = new
                     {
-                        name = "appointment_confirmation",
-                        language = new { code = language },
+                        name = "appointment_reminder",
+                        language = new { code = "ar_EG" },
                         components = new[]
                         {
                             new
@@ -68,6 +68,7 @@ namespace MedScanAI.Service.Implementation
                 {
                     var errorResponse = await response.Content.ReadAsStringAsync();
                     _logger.LogError("WhatsApp API failed with status {StatusCode}: {ErrorResponse}", response.StatusCode, errorResponse);
+                    throw new Exception($"Meta API Error ({response.StatusCode}): {errorResponse}");
                 }
                 else
                 {
@@ -77,6 +78,7 @@ namespace MedScanAI.Service.Implementation
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception occurred while sending WhatsApp appointment reminder to {PhoneNumber}", phoneNumber);
+                throw;
             }
         }
 
@@ -93,8 +95,8 @@ namespace MedScanAI.Service.Implementation
                     type = "template",
                     template = new
                     {
-                        name = "breast_check_reminder",
-                        language = new { code = language },
+                        name = "breast_self_check",
+                        language = new { code = "ar" },
                         components = new object[]
                         {
                             new
@@ -103,16 +105,6 @@ namespace MedScanAI.Service.Implementation
                                 parameters = new object[]
                                 {
                                     new { type = "text", text = patientName }
-                                }
-                            },
-                            new
-                            {
-                                type = "button",
-                                sub_type = "url",
-                                index = "0", // changed to string to avoid potential json typing issues, or keep as int but use object[]
-                                parameters = new object[]
-                                {
-                                    new { type = "text", text = link }
                                 }
                             }
                         }
@@ -129,6 +121,7 @@ namespace MedScanAI.Service.Implementation
                 {
                     var errorResponse = await response.Content.ReadAsStringAsync();
                     _logger.LogError("WhatsApp API failed with status {StatusCode}: {ErrorResponse}", response.StatusCode, errorResponse);
+                    throw new Exception($"Meta API Error ({response.StatusCode}): {errorResponse}");
                 }
                 else
                 {
@@ -138,6 +131,7 @@ namespace MedScanAI.Service.Implementation
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception occurred while sending WhatsApp breast check reminder to {PhoneNumber}", phoneNumber);
+                throw;
             }
         }
 
@@ -191,6 +185,48 @@ namespace MedScanAI.Service.Implementation
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception occurred while sending WhatsApp appointment cancellation to {PhoneNumber}", phoneNumber);
+            }
+        }
+        public async Task SendTextMessageAsync(string phoneNumber, string message)
+        {
+            try
+            {
+                var formattedPhone = phoneNumber.StartsWith("+") ? phoneNumber.Substring(1) : phoneNumber;
+
+                var payload = new
+                {
+                    messaging_product = "whatsapp",
+                    recipient_type = "individual",
+                    to = formattedPhone,
+                    type = "text",
+                    text = new
+                    {
+                        preview_url = false,
+                        body = message
+                    }
+                };
+
+                var request = new HttpRequestMessage(HttpMethod.Post, $"{_phoneNumberId}/messages");
+                request.Headers.Add("Authorization", $"Bearer {_accessToken}");
+                request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    _logger.LogError("WhatsApp API failed with status {StatusCode}: {ErrorResponse}", response.StatusCode, errorResponse);
+                    throw new Exception($"Meta API Error ({response.StatusCode}): {errorResponse}");
+                }
+                else
+                {
+                    _logger.LogInformation("Successfully sent WhatsApp text message to {PhoneNumber}", formattedPhone);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception occurred while sending WhatsApp text message to {PhoneNumber}", phoneNumber);
+                throw;
             }
         }
     }

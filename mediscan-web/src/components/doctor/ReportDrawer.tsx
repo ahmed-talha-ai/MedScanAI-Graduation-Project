@@ -1,130 +1,11 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { reportService } from '@/services/reportService';
 import type { MedicalReportResponse } from '@/types/api';
 import { useTranslations, useLocale } from 'next-intl';
-
-// ─── Simple markdown-lite renderer (English, LTR) ─────────────────────────────
-function ReportText({ text }: { text: string }) {
-  const cleanText = text.replace(/<think>[\s\S]*?(<\/think>|$)/g, '').trim();
-  const lines = cleanText.split('\n');
-
-  const elements = [];
-  let i = 0;
-
-  const parseBold = (str: string) => {
-    const parts = str.split(/\*\*(.*?)\*\*/g);
-    return parts.map((p, j) =>
-      j % 2 === 1 ? <strong key={j} className="text-on-surface font-semibold">{p}</strong> : p
-    );
-  };
-
-  while (i < lines.length) {
-    const line = lines[i].trim();
-
-    if (line.startsWith('|')) {
-      const tableRows = [];
-      while (i < lines.length && lines[i].trim().startsWith('|')) {
-        tableRows.push(lines[i].trim());
-        i++;
-      }
-      
-      if (tableRows.length >= 2) {
-        const headers = tableRows[0].split('|').slice(1, -1).map(s => s.trim());
-        const bodyRows = tableRows.slice(2);
-        
-        elements.push(
-          <div key={`table-${i}`} className="overflow-x-auto my-6 border border-surface-container-high rounded-lg ambient-shadow">
-            <table className="w-full text-sm text-start">
-              <thead className="bg-surface-container-low border-b border-surface-container-high">
-                <tr>
-                  {headers.map((h, idx) => (
-                    <th key={idx} className="p-3 font-bold text-on-surface text-start border-e last:border-e-0 border-surface-container-high">
-                      {parseBold(h.replace(/<br\s*\/?>/gi, ' '))}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-surface-container-high bg-surface-container-lowest">
-                {bodyRows.map((row, rIdx) => {
-                  const cells = row.split('|').slice(1, -1).map(s => s.trim());
-                  return (
-                    <tr key={rIdx} className="hover:bg-surface-container/30 transition-colors">
-                      {cells.map((cell, cIdx) => (
-                        <td key={cIdx} className="p-3 text-on-surface-variant align-top border-e last:border-e-0 border-surface-container-high">
-                          {cell.split(/<br\s*\/?>/i).map((part, pIdx) => (
-                            <span key={pIdx} className="block mb-1 last:mb-0">
-                              {parseBold(part)}
-                            </span>
-                          ))}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        );
-      }
-      continue;
-    }
-
-    if (line.startsWith('---') || line.startsWith('***')) {
-      elements.push(<hr key={i} className="my-5 border-t border-surface-container-high" />);
-    } else if (line.startsWith('> ')) {
-      elements.push(
-        <blockquote key={i} className="border-s-4 border-primary/50 bg-primary/5 p-3 rounded-e my-2 text-on-surface-variant italic">
-          {parseBold(line.slice(2))}
-        </blockquote>
-      );
-    } else if (line.startsWith('## ')) {
-      elements.push(
-        <h2 key={i} className="text-base font-bold text-primary mt-5 mb-1 first:mt-0">
-          {parseBold(line.slice(3))}
-        </h2>
-      );
-    } else if (line.startsWith('### ')) {
-      elements.push(
-        <h3 key={i} className="text-sm font-bold text-on-surface mt-3 mb-0.5">
-          {parseBold(line.slice(4))}
-        </h3>
-      );
-    } else if (line.startsWith('- ') || line.startsWith('• ')) {
-      elements.push(
-        <li key={i} className="list-none flex gap-2 text-on-surface-variant anim-fade-up-in" style={{ animationFillMode: 'both', animationDelay: `${(i % 15) * 40}ms` }}>
-          <span className="text-primary mt-0.5 flex-shrink-0">•</span>
-          <span>{parseBold(line.slice(2))}</span>
-        </li>
-      );
-    } else if (/^\d+\.\s/.test(line)) {
-      const content = line.replace(/^\d+\.\s/, '');
-      const number = line.match(/^\d+/)?.[0];
-      elements.push(
-        <li key={i} className="list-none flex gap-2 text-on-surface-variant anim-fade-up-in" style={{ animationFillMode: 'both', animationDelay: `${(i % 15) * 40}ms` }}>
-          <span className="text-primary mt-0.5 flex-shrink-0 font-bold">{number}.</span>
-          <span>{parseBold(content)}</span>
-        </li>
-      );
-    } else if (line === '') {
-      elements.push(<div key={i} className="h-1.5" />);
-    } else {
-      elements.push(
-        <p key={i} className="text-on-surface-variant">
-          {parseBold(line)}
-        </p>
-      );
-    }
-    i++;
-  }
-
-  return (
-    <div className="space-y-1.5 text-on-surface leading-relaxed text-sm" dir="ltr" lang="en">
-      {elements}
-    </div>
-  );
-}
+import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 
 // ─── Loading skeleton ─────────────────────────────────────────────────────────
 function DrawerSkeleton() {
@@ -155,6 +36,8 @@ export interface ReportDrawerProps {
 export function ReportDrawer({ patientId, patientName, onClose }: ReportDrawerProps) {
   const t = useTranslations('reportDrawer');
   const locale = useLocale();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   const isOpen = patientId !== null;
 
   const [report, setReport]       = useState<MedicalReportResponse | null>(null);
@@ -243,7 +126,9 @@ export function ReportDrawer({ patientId, patientName, onClose }: ReportDrawerPr
     }
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <>
       {/* Backdrop */}
       <div
@@ -254,14 +139,14 @@ export function ReportDrawer({ patientId, patientName, onClose }: ReportDrawerPr
         aria-hidden="true"
       />
 
-      {/* Drawer panel — slides in from the dynamic side */}
+      {/* Drawer panel — now a centered modal */}
       <aside
         role="dialog"
         aria-modal="true"
         aria-label={t('patientLabel', { name: patientName ?? '' })}
         dir={locale === 'ar' ? 'rtl' : 'ltr'}
-        className={`fixed top-0 end-0 z-50 h-full w-full max-w-lg bg-surface-container-lowest shadow-2xl flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isOpen ? 'translate-x-0' : 'translate-x-full rtl:-translate-x-full'
+        className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[95vw] max-w-5xl h-[90vh] bg-surface-container-lowest rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'
         }`}
       >
         {/* Drawer header */}
@@ -335,8 +220,10 @@ export function ReportDrawer({ patientId, patientName, onClose }: ReportDrawerPr
               )}
 
               {/* Report text */}
-              <div className="bg-surface-container-low rounded-xl p-5">
-                <ReportText text={report.report} />
+              <div className="bg-surface-container-lowest border border-surface-container-high rounded-xl p-6 md:p-8 ambient-shadow mb-6">
+                <div className="prose prose-sm max-w-none prose-headings:text-primary prose-a:text-secondary" dir="ltr" lang="en">
+                  <MarkdownRenderer text={report.report} dir="ltr" lang="en" />
+                </div>
               </div>
 
               {/* Standalone PDF download card at bottom of scrollable area */}
@@ -372,7 +259,12 @@ export function ReportDrawer({ patientId, patientName, onClose }: ReportDrawerPr
           {!loading && !error && !report && (
             <div className="p-6 flex flex-col items-center justify-center min-h-[300px] space-y-3 text-center">
               <span className="material-symbols-outlined text-5xl text-on-surface-variant">description</span>
-              <p className="font-semibold text-on-surface">{t('noReportTitle')}</p>
+              <div>
+                <p className="font-semibold text-on-surface">{t('noReportTitle')}</p>
+                <p className="text-sm font-medium mt-1">
+                  {patientName}
+                </p>
+              </div>
               <p className="text-sm text-on-surface-variant max-w-xs">
                 {t('noReportDesc')}
               </p>
@@ -380,6 +272,7 @@ export function ReportDrawer({ patientId, patientName, onClose }: ReportDrawerPr
           )}
         </div>
       </aside>
-    </>
+    </>,
+    document.body
   );
 }

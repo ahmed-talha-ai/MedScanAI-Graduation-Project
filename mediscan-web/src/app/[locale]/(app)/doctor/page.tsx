@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/stores/authStore';
 import { doctorService } from '@/services/doctorService';
 import { ReportDrawer } from '@/components/doctor/ReportDrawer';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 import { SkeletonRow } from '@/components/ui/Skeleton';
 import type { DoctorDashboardResponse, DoctorPatientEntry } from '@/types/api';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
@@ -136,29 +137,17 @@ export default function DoctorDashboard() {
   // Derived stats
   const todayEntries: DoctorPatientEntry[] = data?.patients.filter(p => isToday(p.appointmentDate)) ?? [];
   const totalPatients = data?.patients.length ?? 0;
-  const doctorName = data?.doctorName ?? user?.userId?.substring(0, 8) ?? 'Doctor';
+  const doctorName = data?.doctorName || (user?.userId ? `#${user.userId.substring(0, 8)}` : 'Doctor');
 
   return (
     <>
       <div className="space-y-8">
         {/* Header */}
-        <section className={`flex justify-between items-end flex-wrap gap-4 transition-all duration-700 ${mounted ? ANIM_CLASSES.visible : ANIM_CLASSES.hidden}`}>
-          <div>
-            <Typewriter 
-              as="h1" 
-              text={`Good morning, Dr. ${doctorName}`} 
-              className="text-3xl lg:text-4xl font-bold text-primary tracking-tight" 
-            />
-            <p className="text-on-surface-variant mt-1">
-              {new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="p-2 rounded-full bg-surface-container-lowest ambient-shadow text-on-surface-variant hover:text-primary transition-colors">
-              <span className="material-symbols-outlined">notifications</span>
-            </button>
-          </div>
-        </section>
+        <DashboardHero 
+          title={`${t('goodMorning')}, ${doctorName}`} 
+          subtitle={new Date().toLocaleDateString(locale === 'ar' ? 'ar-EG' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} 
+          icon="stethoscope" 
+        />
 
         {/* Loading */}
         {loading && (
@@ -194,16 +183,16 @@ export default function DoctorDashboard() {
                 <div className="absolute top-0 end-0 p-4 opacity-15 pointer-events-none">
                   <span className="material-symbols-outlined text-7xl">vital_signs</span>
                 </div>
-                <p className="text-sm font-medium text-primary-fixed-dim mb-1">Today&apos;s Load</p>
+                <p className="text-sm font-medium text-primary-fixed-dim mb-1">{t('todaysLoad')}</p>
                 <AnimatedNumber value={todayEntries.length} className="text-5xl font-bold mb-4 block" duration={1200} />
                 <p className="text-sm font-medium opacity-80">
-                  {todayEntries.length === 0 ? t('noApptsToday') : `${todayEntries.length} appointment${todayEntries.length > 1 ? 's' : ''} ${t('today')}`}
+                  {todayEntries.length === 0 ? t('noApptsToday') : t('appointmentsCount', { count: todayEntries.length })}
                 </p>
               </div>
 
               {/* Total patients */}
               <div 
-                className={`bg-surface-container-lowest dark:glass-panel rounded-xl p-6 ambient-shadow ghost-border dark:border-white/10 flex flex-col justify-between transition-all duration-700 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
+                className={`bg-surface-container-lowest dark:bg-[#0d1526] dark:border-[rgba(107,216,203,0.06)] rounded-xl p-6 ambient-shadow border border-surface-container-high flex flex-col justify-between transition-all duration-700 ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
                 style={{ transitionDelay: staggerDelay(2, 100) }}
               >
                 <div className="w-11 h-11 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-4">
@@ -218,7 +207,7 @@ export default function DoctorDashboard() {
               {/* Quick action — Neurological Exam */}
               <Link
                 href={`/${locale}/doctor/examination`}
-                className={`bg-surface-container-lowest dark:glass-panel rounded-xl p-6 ambient-shadow ghost-border dark:border-white/10 border-dashed border-outline-variant flex items-center justify-center gap-3 hover:bg-surface-container-low dark:hover:bg-white/5 transition-all duration-700 group ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
+                className={`bg-surface-container-lowest dark:bg-[#0d1526] dark:border-[rgba(107,216,203,0.06)] rounded-xl p-6 ambient-shadow border border-surface-container-high border-dashed border-outline-variant flex items-center justify-center gap-3 hover:bg-surface-container-low dark:hover:bg-[#111d33] transition-all duration-700 group ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
                 style={{ transitionDelay: staggerDelay(3, 100) }}
               >
                 <span className="material-symbols-outlined text-primary text-2xl group-hover:scale-110 transition-transform">medical_information</span>
@@ -228,7 +217,7 @@ export default function DoctorDashboard() {
               {/* Quick action — AI Tools */}
               <Link
                 href={`/${locale}/dashboard/ai-tools`}
-                className={`bg-surface-container-lowest dark:glass-panel rounded-xl p-6 ambient-shadow ghost-border dark:border-white/10 border-dashed border-outline-variant flex items-center justify-center gap-3 hover:bg-surface-container-low dark:hover:bg-white/5 transition-all duration-700 group ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
+                className={`bg-surface-container-lowest dark:bg-[#0d1526] dark:border-[rgba(107,216,203,0.06)] rounded-xl p-6 ambient-shadow border border-surface-container-high border-dashed border-outline-variant flex items-center justify-center gap-3 hover:bg-surface-container-low dark:hover:bg-[#111d33] transition-all duration-700 group ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
                 style={{ transitionDelay: staggerDelay(4, 100) }}
               >
                 <span className="material-symbols-outlined text-tertiary text-2xl group-hover:scale-110 transition-transform">psychology</span>
@@ -239,9 +228,9 @@ export default function DoctorDashboard() {
             {/* Today's schedule + Patient registry */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* Today's schedule */}
-              <section className="lg:col-span-4 bg-surface-container-lowest dark:glass-panel rounded-xl p-6 ambient-shadow ghost-border dark:border-white/10">
+              <section className="lg:col-span-4 bg-surface-container-lowest dark:bg-[#0d1526] dark:border dark:border-[rgba(107,216,203,0.06)] rounded-xl p-6 ambient-shadow border border-surface-container-high">
                 <div className="flex items-center justify-between mb-5">
-                  <h2 className="text-lg font-bold text-on-surface">Today&apos;s Schedule</h2>
+                  <h2 className="text-lg font-bold text-on-surface">{t('todaysSchedule')}</h2>
                   <Link
                     href={`/${locale}/doctor/appointments`}
                     className="text-primary text-xs font-semibold hover:underline flex items-center gap-1"
@@ -290,9 +279,9 @@ export default function DoctorDashboard() {
               </section>
 
               {/* Patient registry */}
-              <section className="lg:col-span-8 bg-surface-container-lowest dark:glass-panel rounded-xl p-6 ambient-shadow ghost-border dark:border-white/10">
+              <section className="lg:col-span-8 bg-surface-container-lowest dark:bg-[#0d1526] dark:border dark:border-[rgba(107,216,203,0.06)] rounded-xl p-6 ambient-shadow border border-surface-container-high flex flex-col">
                 <div className="flex items-center justify-between mb-5">
-                  <h2 className="text-lg font-bold text-on-surface">Patient Registry</h2>
+                  <h2 className="text-lg font-bold text-on-surface">{t('patientRegistry')}</h2>
                   <Link
                     href={`/${locale}/doctor/appointments`}
                     className="text-primary text-xs font-semibold hover:underline flex items-center gap-1"

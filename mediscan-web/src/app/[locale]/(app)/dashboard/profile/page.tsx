@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { patientService } from '@/services/patientService';
 import { SkeletonRow } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ui/ErrorState';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 import type {
   PatientProfileResponse,
   PatientHistoryItem,
@@ -12,7 +13,7 @@ import type {
   AddMedicalHistoryPayload,
   DeleteMedicalHistoryPayload,
 } from '@/types/api';
-import { staggerDelay } from '@/lib/animations';
+import { staggerDelay, ANIM_CLASSES } from '@/lib/animations';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { useTranslations } from 'next-intl';
 
@@ -104,6 +105,8 @@ function HistorySection({
   title,
   icon,
   items,
+  bgClass,
+  textClass,
   colorClass,
   emptyText,
   addPlaceholder,
@@ -115,6 +118,8 @@ function HistorySection({
   title: string;
   icon: string;
   items: PatientHistoryItem[];
+  bgClass: string;
+  textClass: string;
   colorClass: string;
   emptyText: string;
   addPlaceholder: string;
@@ -124,9 +129,9 @@ function HistorySection({
   deletingId: number | null;
 }) {
   return (
-    <div className="bg-surface-container-lowest rounded-lg p-6 ambient-shadow ghost-border">
+    <div className={`${bgClass} rounded-xl p-6 ambient-shadow border transition-all duration-500 hover:-translate-y-1 hover:shadow-md`}>
       <div className="flex items-center gap-2 mb-4">
-        <span className="material-symbols-outlined text-primary">{icon}</span>
+        <span className={`material-symbols-outlined ${textClass}`}>{icon}</span>
         <h3 className="font-bold text-on-surface">{title}</h3>
         <span className="ms-auto text-xs text-on-surface-variant font-medium bg-surface-container px-2 py-0.5 rounded-full">
           {items.length}
@@ -269,10 +274,13 @@ export default function ProfilePage() {
   const [addingFamily, setAddingFamily]       = useState(false);
   const [deletingId, setDeletingId]           = useState<number | null>(null);
 
-  const showToast = (msg: string) => {
+const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3000);
   };
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const loadProfile = async () => {
     if (!user?.userId) return;
@@ -372,10 +380,11 @@ export default function ProfilePage() {
       )}
 
       {/* Header */}
-      <section>
-        <h1 className="text-3xl font-bold text-primary">{t('title')}</h1>
-        <p className="text-on-surface-variant mt-1">{t('subtitle')}</p>
-      </section>
+      <DashboardHero
+        icon="person"
+        title={t('title')}
+        subtitle={t('subtitle')}
+      />
 
       {/* Loading / error */}
       {loading && (
@@ -463,8 +472,10 @@ export default function ProfilePage() {
             <RevealOnScroll direction="left" delay={0}>
               <HistorySection
                 title={t('chronicDiseases')}
-                icon="health_and_safety"
+                icon="coronavirus"
                 items={profile.chronicDiseases || []}
+                bgClass="bg-purple-50/50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30"
+                textClass="text-secondary"
                 colorClass="bg-secondary/10 text-secondary"
                 emptyText={t('noChronicDiseases')}
                 addPlaceholder={t('addDiseasePlaceholder')}
@@ -480,7 +491,9 @@ export default function ProfilePage() {
                 title={t('familyHistory', { fallback: 'Family History' })}
                 icon="family_history"
                 items={profile.familyHistory || []}
-                colorClass="bg-tertiary/10 text-tertiary"
+                bgClass="bg-amber-50/50 dark:bg-amber-900/10 border-amber-100 dark:border-amber-900/30"
+                textClass="text-amber-600 dark:text-amber-400"
+                colorClass="bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
                 emptyText={t('noChronicDiseases', { fallback: 'No family history added' })}
                 addPlaceholder={t('addDiseasePlaceholder')}
                 onAdd={(name) => void (async () => { await handleAdd('family', name, setAddingFamily); })()}
@@ -493,8 +506,10 @@ export default function ProfilePage() {
             <RevealOnScroll direction="up" delay={0}>
               <HistorySection
                 title={t('allergies')}
-                icon="warning"
+                icon="masks"
                 items={profile.allergies || []}
+                bgClass="bg-rose-50/50 dark:bg-rose-900/10 border-rose-100 dark:border-rose-900/30"
+                textClass="text-error"
                 colorClass="bg-error-container text-error"
                 emptyText={t('noAllergies')}
                 addPlaceholder={t('addAllergyPlaceholder')}
@@ -510,6 +525,8 @@ export default function ProfilePage() {
                 title={t('medications')}
                 icon="medication"
                 items={profile.currentMedication || []}
+                bgClass="bg-teal-50/50 dark:bg-teal-900/10 border-teal-100 dark:border-teal-900/30"
+                textClass="text-primary"
                 colorClass="bg-primary/10 text-primary"
                 emptyText={t('noMedications')}
                 addPlaceholder={t('addMedicationPlaceholder')}
@@ -525,14 +542,18 @@ export default function ProfilePage() {
 
       {/* Quick Stats */}
       {!loading && !error && profile && (
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
           {[
-            { label: t('chronicDiseases'), count: (profile.chronicDiseases || []).length, icon: 'health_and_safety', color: 'text-secondary' },
-            { label: t('allergies'), count: (profile.allergies || []).length, icon: 'warning', color: 'text-error' },
-            { label: t('medications'), count: (profile.currentMedication || []).length, icon: 'medication', color: 'text-primary' },
-            { label: t('familyHistory', { fallback: 'Family History' }), count: (profile.familyHistory || []).length, icon: 'family_history', color: 'text-tertiary' },
-          ].map(({ label, count, icon, color }) => (
-            <div key={label} className="bg-surface-container-lowest rounded-lg p-5 ambient-shadow ghost-border text-center">
+            { label: t('chronicDiseases'), count: (profile.chronicDiseases || []).length, icon: 'coronavirus', color: 'text-secondary', bg: 'bg-purple-50/50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30' },
+            { label: t('familyHistory', { fallback: 'Family History' }), count: (profile.familyHistory || []).length, icon: 'family_history', color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50/50 dark:bg-amber-900/10 border-amber-100 dark:border-amber-900/30' },
+            { label: t('allergies'), count: (profile.allergies || []).length, icon: 'masks', color: 'text-error', bg: 'bg-rose-50/50 dark:bg-rose-900/10 border-rose-100 dark:border-rose-900/30' },
+            { label: t('medications'), count: (profile.currentMedication || []).length, icon: 'medication', color: 'text-primary', bg: 'bg-teal-50/50 dark:bg-teal-900/10 border-teal-100 dark:border-teal-900/30' },
+          ].map(({ label, count, icon, color, bg }, idx) => (
+            <div 
+              key={label} 
+              className={`${bg} border rounded-xl p-5 ambient-shadow text-center transition-all duration-700 hover:-translate-y-1 hover:shadow-md ${mounted ? ANIM_CLASSES.scaleIn : ANIM_CLASSES.scale}`}
+              style={{ transitionDelay: staggerDelay(idx, 100) }}
+            >
               <span className={`material-symbols-outlined text-3xl ${color} mb-2`}>{icon}</span>
               <p className="text-3xl font-extrabold text-on-surface">{count}</p>
               <p className="text-xs text-on-surface-variant mt-1 font-medium">{label}</p>

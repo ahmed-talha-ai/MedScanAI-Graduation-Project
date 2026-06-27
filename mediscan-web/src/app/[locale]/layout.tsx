@@ -2,23 +2,16 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Plus_Jakarta_Sans, IBM_Plex_Sans_Arabic } from 'next/font/google';
+import { Cairo } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import { Providers } from '@/components/Providers';
 import '../globals.css';
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-plus-jakarta',
+const cairo = Cairo({
+  subsets: ['arabic', 'latin'],
+  variable: '--font-cairo',
   display: 'swap',
-});
-
-const ibmArabic = IBM_Plex_Sans_Arabic({
-  subsets: ['arabic'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-ibm-arabic',
-  display: 'swap',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
 export async function generateMetadata({
@@ -63,7 +56,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${plusJakarta.variable} ${ibmArabic.variable} light`}
+      className={`${cairo.variable} light`}
     >
       <head>
         {/* Material Symbols Outlined — icon font not available via next/font/google */}
@@ -73,7 +66,7 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-background text-on-surface antialiased min-h-screen">
+      <body className="bg-background text-on-surface antialiased min-h-screen overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
           <Providers>{children}</Providers>
         </NextIntlClientProvider>

@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { reportService } from '@/services/reportService';
 import type { PatientWarning } from '@/types/api';
 import { SkeletonRow } from '@/components/ui/Skeleton';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
 import { useTranslations } from 'next-intl';
 
@@ -154,10 +155,11 @@ export default function ForbiddenMedicinesPage() {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Header */}
-      <section>
-        <h1 className="text-3xl font-bold text-primary">{t('title')}</h1>
-        <p className="text-on-surface-variant mt-1">{t('subtitle')}</p>
-      </section>
+      <DashboardHero
+        icon="medication"
+        title={t('title')}
+        subtitle={t('subtitle')}
+      />
 
       {/* Offline notice */}
       {offline && !loading && (

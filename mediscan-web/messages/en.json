@@ -81,7 +81,34 @@
     },
     "footer": "AI-assisted diagnostics — not a substitute for professional medical advice.",
     "testimonialsTitle": "What Our Patients Say",
-    "testimonialsSubtitle": "Read genuine reviews from users who experienced MediScan AI."
+    "testimonialsSubtitle": "Read genuine reviews from users who experienced MediScan AI.",
+    "verifiedUser": "Verified User",
+    "fallbackReviews": {
+      "r1": {
+        "name": "Ahmed",
+        "comment": "The AI diagnosis was incredibly accurate and helped me understand my lab results clearly."
+      },
+      "r2": {
+        "name": "Sarah",
+        "comment": "Booking appointments is so easy now. The smart scheduling saves me a lot of time."
+      },
+      "r3": {
+        "name": "Mohamed",
+        "comment": "The bilingual medical reports feature is a game changer — Arabic for me, English for my doctor."
+      },
+      "r4": {
+        "name": "Fatma",
+        "comment": "I used the breast self-exam guide and it gave me peace of mind. Amazing platform!"
+      },
+      "r5": {
+        "name": "Omar",
+        "comment": "The forbidden medicines checker alerted me about a dangerous interaction. Potentially life-saving!"
+      },
+      "r6": {
+        "name": "Nour",
+        "comment": "The chatbot answered all my medical questions instantly. It feels like having a doctor on call 24/7."
+      }
+    }
   },
   "auth": {
     "login": {
@@ -252,56 +279,18 @@
       "viewAll": "View all",
       "noAppointments": "No upcoming appointments",
       "noAppointmentsSubtitle": "Book an appointment to get started with your care.",
+      "statusPending": "Pending",
+      "statusConfirmed": "Confirmed",
+      "statusCompleted": "Completed",
+      "statusCancelled": "Cancelled",
       "chronicDiseases": "Chronic Diseases",
       "allergies": "Allergies",
       "medications": "Medications",
       "noneRecorded": "None recorded"
     },
-    "doctor": {
-      "greeting": "Good morning, Dr. {name}.",
-      "subtitle": "Here is your clinical overview for today.",
-      "todaysLoad": "Today's Load",
-      "totalPatients": "Total Patients",
-      "launchAiTools": "Launch AI Tools",
-      "todaysSchedule": "Today's Schedule",
-      "patientRegistry": "Patient Registry",
-      "noAppointmentsToday": "No appointments today",
-      "noPatients": "No patients found",
-      "viewAll": "View all",
-      "manage": "Manage",
-      "appointments": "Patient Appointments",
-      "appointmentsSubtitle": "Manage appointments and view patient reports.",
-      "filterAll": "All",
-      "filterToday": "Today",
-      "filterCompleted": "Completed",
-      "markComplete": "Mark Complete",
-      "viewReport": "View Report",
-      "profile": "My Profile",
-      "profileSubtitle": "Your account information and clinic overview.",
-      "patientDetail": "Patient Detail",
-      "visitSnapshot": "Visit Snapshot",
-      "scheduledDate": "Scheduled Date",
-      "reason": "Reason",
-      "patientId": "Patient ID",
-      "lastVisit": "Last Visit",
-      "sendMessage": "Send Message",
-      "comingSoon": "Coming soon",
-      "drugWarnings": "Drug Interaction Warnings",
-      "reviewRequired": "REVIEW REQUIRED",
-      "warningServiceOffline": "AI Warning service is offline. Drug interaction checks are unavailable.",
-      "noWarnings": "No active warnings detected.",
-      "runExamination": "Run Examination",
-      "chronicDiseases": "Chronic Diseases",
-      "allergies": "Allergies",
-      "currentMedications": "Current Medications",
-      "noRecords": "No records",
-      "completed": "Completed",
-      "goBack": "Go Back",
-      "patientNotFound": "Patient not found",
-      "patientNotFoundSubtitle": "This patient may have been removed or the link is invalid."
-    },
     "admin": {
       "greeting": "Welcome, Admin.",
+      "welcomeMessage": "Welcome, Admin",
       "subtitle": "System administration overview.",
       "totalDoctors": "Total Doctors",
       "totalPatients": "Total Patients",
@@ -318,6 +307,43 @@
       "addDoctorTitle": "Add New Doctor",
       "addAdminTitle": "Add New Admin",
       "bookAppointmentTitle": "Walk-in Booking",
+      "addDoctorDesc": "Register a new doctor account",
+      "addAdminDesc": "Create a new admin account",
+      "walkInBookingDesc": "Book appointment for a patient",
+      "doctorManagementDesc": "View and manage all doctors",
+      "open": "Open",
+      "patient": "Patient",
+      "doctor": "Doctor",
+      "time": "Time",
+      "status": "Status",
+      "actions": "Actions",
+      "confirm": "Confirm",
+      "whatsappTestPanel": "🧪 WhatsApp Notifications Test",
+      "testPhone": "Phone Number",
+      "invalidPhone": "Invalid phone number. Must start with +2 or 2",
+      "breastTestTitle": "Breast Check Reminder",
+      "patientName": "Patient Name",
+      "sendBreastTest": "Send Breast Reminder",
+      "apptTestTitle": "Appointment Confirmation",
+      "doctorName": "Doctor Name",
+      "sendApptTest": "Send Appointment Confirmation",
+      "whatsappSuccess": "Message sent successfully!",
+      "whatsappError": "Error sending message",
+      "cancel": "Cancel",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "appointmentConfirmed": "Appointment confirmed",
+      "appointmentCancelled": "Appointment cancelled",
+      "failedConfirm": "Failed to confirm",
+      "failedCancel": "Failed to cancel",
+      "networkError": "Network error",
+      "retry": "Retry",
+      "refresh": "Refresh",
+      "filterByDoctor": "Doctor",
+      "allDoctors": "All Doctors",
+      "dailyAppointments": "Daily Appointments",
       "doctorsPage": {
         "drPrefix": "Dr. ",
         "title": "Doctor Management",
@@ -357,7 +383,7 @@
     "no": "No",
     "extractedAnalysis": "Extracted Analysis",
     "uploadedDocument": "Uploaded Document",
-    "chatStartMessage": "Hello! I am your AI Health Assistant. How can I help you today?",
+    "chatStartMessage": "Hello! I am your AI Health Assistant from MediScan AI. How can I help you today?",
     "chatInputPlaceholder": "Ask a medical question...",
     "recentDiagnoses": "Recent Diagnoses",
     "launchAnalysis": "Launch Analysis",
@@ -408,13 +434,21 @@
     "analyseAnotherReport": "Analyze Another Report",
     "analyseBtn": "Analyze",
     "chatPlaceholder": "Ask a medical question...",
-    "chatbotWelcome": "Hello! I am your AI Health Assistant. How can I help you today?",
+    "chatbotWelcome": "Hello! I am your AI Health Assistant from MediScan AI. How can I help you today?",
     "emergencyNote": "If you are experiencing a medical emergency, call your local emergency number immediately.",
     "medicalDisclaimer": "AI-assisted analysis is not a substitute for professional medical advice",
     "processing": "Processing your scan...",
-    "processingDesc": "Our AI model is analyzing your medical image. This may take a few moments.",
+    "processingDesc": "The AI model is analyzing your medical image. This may take a few moments.",
     "qualityTitle": "Quality Requirements",
-    "chatbotSubtitle": "Your personal AI health guide"
+    "qualityPosTitle": "Proper Positioning",
+    "qualityPosDesc": "Ensure the full anatomical area is clearly visible in the frame.",
+    "qualityContrastTitle": "Contrast & Resolution",
+    "qualityContrastDesc": "High-contrast, high-resolution images yield the most accurate results.",
+    "qualityArtefactsTitle": "Avoid Artefacts",
+    "qualityArtefactsDesc": "Motion blur or incorrect exposure may reduce diagnostic accuracy.",
+    "uploadedImage": "Uploaded Image",
+    "chatbotSubtitle": "Your personal AI health guide",
+    "newChat": "New Chat"
   },
   "appointments": {
     "title": "My Appointments",
@@ -518,7 +552,8 @@
       "saveToRecord": "Save to Patient Record",
       "savedSuccessfully": "Results saved successfully",
       "lastCompleted": "Last completed: {date}",
-      "remindMonthly": "Remind me monthly"
+      "remindMonthly": "Remind me monthly",
+      "finish": "Finish Examination"
     },
     "brainTumor": {
       "title": "Brain Tumer Examination",
@@ -727,16 +762,16 @@
   },
   "children": {
     "title": "Children's Health Suite",
-    "subtitle": "8 offline tools — no internet required. All data stays on your device.",
-    "offlineBadge": "100% Offline",
-    "savedLocallyBadge": "Saved Locally",
-    "privacyFirstBadge": "Privacy First",
+    "subtitle": "8 health tools for your child — track growth, monitor symptoms, and more.",
+    "offlineBadge": "8 Specialized Tools",
+    "savedLocallyBadge": "Pediatric Tools",
+    "privacyFirstBadge": "Easy to Use",
     "chooseTool": "Choose a Tool",
     "openTool": "Open tool",
     "medicalDisclaimer": "Medical Disclaimer:",
     "disclaimerText": "These tools are for educational and guidance purposes only. Always consult a qualified pediatrician for medical advice, diagnosis, or treatment.",
     "backToHub": "Back",
-    "offlineDataNote": "Offline — data saved to your device",
+    "offlineDataNote": "Track your child's health data",
     "growth": {
       "addEntry": "Add Entry",
       "date": "Date",
@@ -746,7 +781,9 @@
       "growthChart": "Growth Chart",
       "height": "Height (cm)",
       "weight": "Weight (kg)",
-      "history": "History ({count} entries)"
+      "history": "History ({count} entries)",
+      "lastMeasurement": "Last Measurement",
+      "chartMinEntries": "Add at least 2 entries to display the growth chart"
     },
     "bmi": {
       "weightKg": "Weight (kg)",
@@ -775,7 +812,8 @@
       "triageHome": "Rest & Home Care",
       "descUrgent": "One or more serious symptoms detected. Go to the ER immediately.",
       "descWatch": "Symptoms require a doctor visit within 24 hours.",
-      "descHome": "Symptoms are mild. Monitor closely and rest."
+      "descHome": "Symptoms are mild. Monitor closely and rest.",
+      "severityLevel": "Severity Level"
     },
     "milestones": {
       "achievedCount": "{count}/{total} achieved",
@@ -804,7 +842,9 @@
       "paraFreq": "Every 4–6 hours (max 4 doses/day)",
       "ibuFreq": "Every 6–8 hours (max 3 doses/day)",
       "warningLabel": "⚠ Warning: ",
-      "warningText": "Always consult a doctor. Do not exceed the maximum daily dose."
+      "warningText": "Always consult a doctor. Do not exceed the maximum daily dose.",
+      "comparison": "Dose Comparison",
+      "weightWarning": "Weight out of safe range. Consult a doctor."
     },
     "vaccines": {
       "completedCount": "Vaccines completed",
@@ -816,7 +856,8 @@
       "m4": "4 months",
       "m6": "6 months",
       "m12": "12 months",
-      "m18": "18 months"
+      "m18": "18 months",
+      "nextDue": "Next"
     },
     "food": {
       "age0_6": "0–6 months",
@@ -894,7 +935,8 @@
       "headStep2": "Apply ice pack wrapped in cloth for 20 min",
       "headStep3": "Monitor closely for 24 hours",
       "headStep4": "Seek emergency if unconscious, vomiting, or seizure",
-      "headStep5": "Avoid painkillers that mask symptoms"
+      "headStep5": "Avoid painkillers that mask symptoms",
+      "stepOf": "Step {step} of {total}"
     },
     "units": {
       "cm": "cm",
@@ -906,35 +948,43 @@
     "tools": {
       "growth-tracker": {
         "title": "Growth Tracker",
-        "desc": "Log and visualise height & weight over time"
+        "desc": "Log and visualise height & weight over time",
+        "badge": "WHO Standards"
       },
       "bmi-calculator": {
         "title": "BMI Calculator",
-        "desc": "Calculate body-mass index and weight category"
+        "desc": "Calculate body-mass index and weight category",
+        "badge": "Precise"
       },
       "symptom-checker": {
         "title": "Symptom Checker",
-        "desc": "Checklist-based triage guidance for common symptoms"
+        "desc": "Checklist-based triage guidance for common symptoms",
+        "badge": "Recommended"
       },
       "milestones": {
         "title": "Developmental Milestones",
-        "desc": "Track age-appropriate developmental achievements"
+        "desc": "Track age-appropriate developmental achievements",
+        "badge": "Interactive"
       },
       "dosage-calculator": {
         "title": "Dosage Calculator",
-        "desc": "Weight-based Paracetamol & Ibuprofen dosing"
+        "desc": "Weight-based Paracetamol & Ibuprofen dosing",
+        "badge": "Safe"
       },
       "vaccination-tracker": {
         "title": "Vaccination Tracker",
-        "desc": "Record and schedule your child's vaccinations"
+        "desc": "Record and schedule your child's vaccinations",
+        "badge": "Organized"
       },
       "food-guide": {
         "title": "Food Guide",
-        "desc": "Age-appropriate foods: safe, avoid, and introduce"
+        "desc": "Age-appropriate foods: safe, avoid, and introduce",
+        "badge": "Complete"
       },
       "first-aid": {
         "title": "First Aid Hub",
-        "desc": "Step-by-step guides for 10 common emergencies"
+        "desc": "Step-by-step guides for 10 common emergencies",
+        "badge": "Essential"
       }
     }
   },
@@ -1069,6 +1119,11 @@
     "successDesc": "The walk-in appointment has been scheduled as Pending."
   },
   "doctorDash": {
+    "goodMorning": "Good morning",
+    "todaysLoad": "Today's Load",
+    "appointmentsCount": "{count} appointment(s) today",
+    "patientRegistry": "Patient Registry",
+    "todaysSchedule": "Today's Schedule",
     "failedLoad": "Failed to load dashboard",
     "failedLoadAppts": "Failed to load appointments",
     "noApptsToday": "No appointments today",
@@ -1104,6 +1159,19 @@
     "profileNotice": "Profile editing is managed by your clinic administrator. Contact admin to update your personal details or specialization.",
     "viewAppts": "View Appointments",
     "aiTools": "AI Tools"
+  },
+  "loader": {
+    "system": "LOADING SYSTEM...",
+    "securing": "Securing Connection...",
+    "models": "LOADING MEDICAL MODELS",
+    "connection": "SECURING CONNECTION",
+    "diagnostics": "CALIBRATING DIAGNOSTICS",
+    "workspace": "PREPARING WORKSPACE",
+    "credentials": "VERIFYING CREDENTIALS",
+    "neural": "LOADING NEURAL NETWORKS",
+    "patientData": "SYNCING PATIENT DATA",
+    "aiCore": "INITIALIZING AI CORE",
+    "tagline": "Clinical Intelligence Platform"
   },
   "editorial": {
     "tagline": "AI-Powered Medical Platform",
@@ -1176,5 +1244,63 @@
     "rating": "Rating",
     "filters": "Filters",
     "clear": "Clear"
+  },
+  "doctor": {
+    "greeting": "Good morning, Dr. {name}.",
+    "subtitle": "Here is your clinical overview for today.",
+    "todaysLoad": "Today's Load",
+    "totalPatients": "Total Patients",
+    "launchAiTools": "Launch AI Tools",
+    "todaysSchedule": "Today's Schedule",
+    "patientRegistry": "Patient Registry",
+    "noAppointmentsToday": "No appointments today",
+    "noPatients": "No patients registered",
+    "viewAll": "View all",
+    "manage": "Manage",
+    "appointments": "Appointments",
+    "appointmentsSubtitle": "Manage your patient appointments and schedules",
+    "filterAll": "All",
+    "filterToday": "Today",
+    "filterCompleted": "Completed",
+    "markComplete": "Mark as Complete",
+    "viewReport": "View AI Report",
+    "profile": "My Profile",
+    "profileSubtitle": "Your account information and clinic overview.",
+    "patientDetail": "Patient Detail",
+    "visitSnapshot": "Visit Snapshot",
+    "scheduledDate": "Scheduled Date",
+    "reason": "Reason for Visit",
+    "patientId": "Patient ID",
+    "lastVisit": "Last Visit",
+    "sendMessage": "Send Message",
+    "comingSoon": "Feature coming soon!",
+    "drugWarnings": "Drug Safety Warnings",
+    "reviewRequired": "Review Required",
+    "warningServiceOffline": "Warning service offline",
+    "noWarnings": "No warnings detected.",
+    "runExamination": "Run Neurological Exam",
+    "chronicDiseases": "Chronic Diseases",
+    "allergies": "Allergies",
+    "currentMedications": "Current Medications",
+    "noRecords": "No records available",
+    "completed": "Completed",
+    "goBack": "Go Back",
+    "patientNotFound": "Patient not found",
+    "patientNotFoundSubtitle": "The patient you are looking for does not exist or has been removed.",
+    "noApptsToday": "No appointments today",
+    "today": "today",
+    "runExam": "Run Exam",
+    "aiTools": "AI Tools",
+    "more": "+{count} more",
+    "viewAllPatients": "View all {count} patients",
+    "title": "AI Medical Report",
+    "patientLabel": "Patient: {name}",
+    "downloadPdf": "Download PDF",
+    "close": "Close",
+    "failedLoad": "Failed to load data",
+    "updateReport": "Update Report",
+    "generateReport": "Generate Report",
+    "scheduled": "Scheduled",
+    "noReportYet": "No report generated yet. Click \"Generate Report\" to run the AI analysis."
   }
 }

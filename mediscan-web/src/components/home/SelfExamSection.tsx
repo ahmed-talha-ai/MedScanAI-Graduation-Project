@@ -5,6 +5,7 @@ import { Brain, Ribbon, Eye, Hand, Ear, Activity, CheckCircle, ArrowRight, Arrow
 import Link from 'next/link';
 import { useInView, ANIM_CLASSES, staggerDelay } from '@/lib/animations';
 import { useTranslations } from 'next-intl';
+import { TypewriterText } from '@/components/ui/TypewriterText';
 
 function BrainExamCard() {
   const [step, setStep] = useState(0);
@@ -214,14 +215,11 @@ export function SelfExamSection() {
   const t = useTranslations('exam.landing');
 
   return (
-    <section ref={ref} id="self-exam" className="py-24 px-6 md:px-12 lg:px-24">
+    <section ref={ref} id="self-exam" className="pt-24 pb-12 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 
-            className={`text-4xl font-bold text-on-surface mb-4 transition-all duration-1000 ease-out ${inView ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`}
-            style={{ transitionDelay: staggerDelay(0, 150) }}
-          >
-            {t('sectionTitle')}
+          <h2 className="text-4xl font-bold text-on-surface mb-4">
+            <TypewriterText text={t('sectionTitle')} speed={50} delay={200} />
           </h2>
           <p 
             className={`text-on-surface-variant text-lg max-w-2xl mx-auto transition-all duration-1000 ease-out ${inView ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`}
@@ -231,10 +229,15 @@ export function SelfExamSection() {
           </p>
         </div>
         <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-1000 ease-out delay-200 ${inView ? ANIM_CLASSES.fadeUpIn : ANIM_CLASSES.fadeUp}`}>
-          <BrainExamCard />
-          <BreastExamCard />
+          <div className="animate-float-slow" style={{ animationDelay: '0s' }}>
+            <BrainExamCard />
+          </div>
+          <div className="animate-float-slow" style={{ animationDelay: '0.4s' }}>
+            <BreastExamCard />
+          </div>
         </div>
       </div>
     </section>
   );
 }
+

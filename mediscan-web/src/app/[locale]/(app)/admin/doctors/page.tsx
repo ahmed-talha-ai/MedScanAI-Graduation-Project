@@ -8,6 +8,7 @@ import { SkeletonRow } from '@/components/ui/Skeleton';
 import type { DoctorListEntry, DoctorForAppointment } from '@/types/api';
 import { ANIM_CLASSES, staggerDelay } from '@/lib/animations';
 import { useTranslations } from 'next-intl';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 
 type FilterTab = 'all' | 'active' | 'inactive';
 
@@ -227,19 +228,20 @@ export default function DoctorManagementPage() {
 
       <div className={`space-y-6 transition-all duration-700 ${mounted ? ANIM_CLASSES.visible : ANIM_CLASSES.hidden}`}>
         {/* Header */}
-        <section className="flex items-center justify-between gap-4 flex-wrap">
-          <div>
-            <h1 className="text-3xl font-bold text-primary">{t('title')}</h1>
-            <p className="text-on-surface-variant mt-1">{t('subtitle')}</p>
-          </div>
-          <Link
-            href={`/${locale}/admin/add-doctor`}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full signature-gradient text-white font-semibold text-sm hover:opacity-90 transition-all ambient-shadow"
-          >
-            <span className="material-symbols-outlined text-sm">person_add</span>
-            {t('addDoctor')}
-          </Link>
-        </section>
+        <DashboardHero 
+          title={t('title')} 
+          subtitle={t('subtitle')} 
+          icon="medical_services" 
+          action={
+            <Link
+              href={`/${locale}/admin/add-doctor`}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-primary font-semibold text-sm hover:bg-white/90 transition-all shadow-md"
+            >
+              <span className="material-symbols-outlined text-sm">person_add</span>
+              {t('addDoctor')}
+            </Link>
+          }
+        />
 
         {/* Filter tabs */}
         <div className="flex gap-8 border-b border-surface-container-high overflow-x-auto w-full">

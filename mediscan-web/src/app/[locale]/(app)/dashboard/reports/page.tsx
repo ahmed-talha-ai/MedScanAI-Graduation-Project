@@ -8,6 +8,7 @@ import { saveReport, getReportHistory } from '@/services/persistenceService';
 import type { MedicalReportResponse } from '@/types/api';
 import { staggerDelay } from '@/lib/animations';
 import { Typewriter } from '@/components/ui/Typewriter';
+import { DashboardHero } from '@/components/ui/DashboardHero';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { useTranslations } from 'next-intl';
@@ -22,8 +23,6 @@ export default function ReportsPage() {
   const [state, setState]   = useState<PageState>('idle');
   const [report, setReport] = useState<MedicalReportResponse | null>(null);
   const [error, setError]   = useState<string | null>(null);
-  const [history, setHistory] = useState<any[]>([]);
-  const [showHistory, setShowHistory] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [loadingStep, setLoadingStep] = useState<1 | 2>(1);
   const [streaming, setStreaming] = useState(false);
@@ -45,18 +44,7 @@ export default function ReportsPage() {
         console.log('No existing report found.');
       }
     };
-    const fetchHistory = async () => {
-      try {
-        const res = await getReportHistory(user.userId);
-        if (res?.data) {
-          setHistory(res.data);
-        }
-      } catch (err) {
-        console.error('Failed to fetch history', err);
-      }
-    };
     checkExisting();
-    fetchHistory();
   }, [user?.userId]);
 
   const handleGenerate = async () => {
@@ -130,10 +118,11 @@ export default function ReportsPage() {
     return (
       <div className="space-y-8 animate-fade-in-up">
         {/* Header */}
-        <section>
-          <h1 className="text-3xl font-bold text-primary">{tReports('title')}</h1>
-          <p className="text-on-surface-variant mt-1">{tReports('subtitle')}</p>
-        </section>
+        <DashboardHero
+          icon="description"
+          title={tReports('title')}
+          subtitle={tReports('subtitle')}
+        />
 
         {/* Generate CTA */}
         <div className="bg-surface-container-lowest rounded-xl p-10 ambient-shadow ghost-border text-center relative overflow-hidden">
@@ -244,9 +233,11 @@ export default function ReportsPage() {
   if (state === 'error') {
     return (
       <div className="space-y-8 animate-fade-in-up">
-        <section>
-          <h1 className="text-3xl font-bold text-primary">{tReports('title')}</h1>
-        </section>
+        <DashboardHero
+          icon="description"
+          title={tReports('title')}
+          subtitle=""
+        />
 
         <div className="bg-surface-container-lowest rounded-xl p-10 ambient-shadow ghost-border text-center space-y-6">
           <div className="w-16 h-16 rounded-full bg-error-container flex items-center justify-center mx-auto">
@@ -272,39 +263,44 @@ export default function ReportsPage() {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Header */}
-      <section className="flex items-start justify-between flex-wrap gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-primary">{tReports('title')}</h1>
-          {report?.generated_at && (
-            <p className="text-on-surface-variant mt-1 text-sm">
+      <DashboardHero
+        icon="description"
+        title={tReports('title')}
+        subtitle={
+          report?.generated_at ? (
+            <span>
               {tReports('generatedAt')}: {new Date(report.generated_at).toLocaleString('ar-EG')}
-            </p>
-          )}
-        </div>
-        <div className="flex gap-3 flex-wrap">
-          <button
-            onClick={() => { setState('idle'); setReport(null); }}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-outline-variant text-on-surface font-semibold text-sm hover:bg-surface-container-low transition-all"
-          >
-            <span className="material-symbols-outlined text-lg">refresh</span>
-            {tReports('newReportBtn')}
-          </button>
+            </span>
+          ) : (
+            ''
+          )
+        }
+        action={
+          <div className="flex gap-3 flex-wrap">
+            <button
+              onClick={() => { setState('idle'); setReport(null); }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/30 text-white font-semibold text-sm hover:bg-white/10 transition-all"
+            >
+              <span className="material-symbols-outlined text-lg">refresh</span>
+              {tReports('newReportBtn')}
+            </button>
 
-          {/* PDF download — always visible alongside report text */}
-          <button
-            onClick={() => void (async () => { await handleDownloadPdf(); })()}
-            disabled={downloading}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full signature-gradient text-white font-semibold text-sm hover:opacity-90 transition-all disabled:opacity-60 ambient-shadow"
-          >
-            {downloading ? (
-              <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            ) : (
-              <span className="material-symbols-outlined text-lg">picture_as_pdf</span>
-            )}
-            {tReports('downloadPdfBtn')}
-          </button>
-        </div>
-      </section>
+            {/* PDF download — always visible alongside report text */}
+            <button
+              onClick={() => void (async () => { await handleDownloadPdf(); })()}
+              disabled={downloading}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-primary font-semibold text-sm hover:opacity-90 transition-all disabled:opacity-60 ambient-shadow"
+            >
+              {downloading ? (
+                <span className="w-4 h-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+              ) : (
+                <span className="material-symbols-outlined text-lg">picture_as_pdf</span>
+              )}
+              {tReports('downloadPdfBtn')}
+            </button>
+          </div>
+        }
+      />
 
       {/* Report card with RTL Arabic content */}
       {(report || reportText) && (
@@ -366,48 +362,7 @@ export default function ReportsPage() {
           </button>
         </div>
       </RevealOnScroll>
-      {/* Report History Collapsible Section */}
-      {history.length > 0 && (
-        <RevealOnScroll direction="up" delay={600}>
-          <div className="bg-surface-container-lowest rounded-lg ambient-shadow ghost-border overflow-hidden">
-            <button
-              onClick={() => setShowHistory(!showHistory)}
-              className="w-full px-6 py-4 flex items-center justify-between bg-surface-container-low hover:bg-surface-container transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary">history</span>
-                <span className="font-bold text-on-surface">{tReports('pastReports')} ({history.length})</span>
-              </div>
-              <span className={`material-symbols-outlined transition-transform ${showHistory ? 'rotate-180' : ''}`}>
-                expand_more
-              </span>
-            </button>
-            {showHistory && (
-              <div className="p-6 border-t border-surface-container-high space-y-4">
-                {history.map((h: any, i: number) => (
-                  <div key={i} className="bg-surface-container rounded-lg p-4 flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-sm text-on-surface">{tReports('reportFrom')} {new Date(h.createdAt).toLocaleDateString('en-GB')}</p>
-                      <p className="text-xs text-on-surface-variant">{tReports('savedAt')} {new Date(h.createdAt).toLocaleTimeString()}</p>
-                    </div>
-                    <button
-                      onClick={() => {
-                        setReportText(h.report);
-                        setReport({ ...report, report: h.report, generated_at: h.createdAt } as any);
-                        setState('result');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                      className="px-4 py-2 bg-primary/10 text-primary font-medium text-xs rounded-full hover:bg-primary/20 transition-colors"
-                    >
-                      {tReports('viewBtn')}
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </RevealOnScroll>
-      )}
+
     </div>
   );
 }

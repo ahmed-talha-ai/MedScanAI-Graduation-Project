@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Logo } from '@/components/ui/Logo';
 
 const TICKER_ITEMS = [
   'INITIALIZING AI CORE',
@@ -44,30 +45,28 @@ export function Preloader() {
       {/* Center content */}
       <div className="relative flex flex-col items-center gap-8 px-8 text-center">
         {/* Logo + laser scan container */}
-        <div className="relative w-24 h-24 rounded-3xl overflow-hidden flex items-center justify-center signature-gradient ambient-shadow">
+        <div className="relative w-28 h-28 rounded-3xl overflow-hidden flex items-center justify-center bg-surface-container-lowest ambient-shadow border border-surface-container-high z-10">
           {/* Laser scan beam */}
           <div
-            className="anim-laser-scan absolute inset-x-0 h-0.5 pointer-events-none"
+            className="anim-laser-scan absolute inset-x-0 h-0.5 pointer-events-none z-20"
             style={{
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)',
-              boxShadow: '0 0 8px 2px rgba(255,255,255,0.4)',
+              background: 'linear-gradient(90deg, transparent, var(--color-primary), transparent)',
+              boxShadow: '0 0 8px 2px var(--color-primary)',
             }}
           />
           {/* Scan lines (static decoration) */}
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="absolute inset-x-0 h-px"
+              className="absolute inset-x-0 h-px pointer-events-none"
               style={{
                 top: `${(i + 1) * 14.28}%`,
-                background: 'rgba(255,255,255,0.07)',
+                background: 'rgba(107, 216, 203, 0.1)',
               }}
             />
           ))}
-          {/* Medical cross icon */}
-          <span className="material-symbols-outlined text-white text-4xl anim-logo-pulse" style={{ fontVariationSettings: "'FILL' 1" }}>
-            medical_services
-          </span>
+          {/* Website Logo */}
+          <Logo size={72} className="anim-logo-pulse drop-shadow-lg z-0" />
         </div>
 
         {/* Brand */}
