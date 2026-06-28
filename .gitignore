@@ -17,8 +17,6 @@ node_modules_bak/
 .vs/
 *.sqlite
 *.sqlite3
-appsettings.json
-appsettings.*.json
 
 # Next.js / Node / React
 .next/
